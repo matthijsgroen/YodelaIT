@@ -9,7 +9,7 @@ const interpret = async (parsedCode) => {
         return { type: "YARN", value: e.contents };
       }
       if (e.type === "term") {
-        return { name: e.name, type: "NOOB", ...variableStore[e.name] };
+        return { type: "NOOB", ...variableStore[e.name] };
       }
       return e;
     });
@@ -17,7 +17,8 @@ const interpret = async (parsedCode) => {
   const executeStatements = async (statements) => {
     for (const statement of statements) {
       if (statement.type === "declareVar") {
-        variableStore[statement.varname.name] = { type: "NOOB" };
+        const varName = statement.varname.name;
+        variableStore[varName] = { name: varName, type: "NOOB" };
       }
       if (statement.type === "functionCall") {
         const functionName = statement.functionName.name;

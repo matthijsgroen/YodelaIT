@@ -1,3 +1,4 @@
+/// <reference types="node" />
 const { createInterface } = require("node:readline/promises");
 
 const stdlib = {

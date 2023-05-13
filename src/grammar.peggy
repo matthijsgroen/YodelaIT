@@ -45,6 +45,7 @@ BooleanExpression "if statement"
   = "BOTH" _ "SAEM" _ a:Expression (_ "AN")? _ b:Expression { 
     return { type: "compare", op: "equal", a, b } 
   }
+  / Boolean
 
 IfStatement
   = _ condition:BooleanExpression _ "," _ "O" _ "RLY?" 
@@ -53,7 +54,7 @@ IfStatement
     _ options:("MEBBE" _ BooleanExpression _end _ Statements)*
     _ fail:("NO" _ "WAI" _end Statements)?
     _ "OIC" end2:_end {
-    return { type: "if", condition, win, options: options.map(o => ({ condition: o[2], code: o[5] })), fail: fail[4] }
+    return { type: "if", condition, win, options: options.map(o => ({ condition: o[2], code: o[5] })), fail: fail ? fail[4] : null }
   }
 
 

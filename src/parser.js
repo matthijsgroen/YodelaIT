@@ -275,7 +275,7 @@ function peg$parse(input, options) {
     return { type: "compare", op: "equal", a, b } 
   };
   var peg$f8 = function(condition, end1, win, options, fail, end2) {
-    return { type: "if", condition, win, options: options.map(o => ({ condition: o[2], code: o[5] })), fail: fail[4] }
+    return { type: "if", condition, win, options: options.map(o => ({ condition: o[2], code: o[5] })), fail: fail ? fail[4] : null }
   };
   var peg$f9 = function(value) { return { type: "YARN", value } };
   var peg$f10 = function(value) { return { type: "NUMBR", value: parseInt(value, 10) } };
@@ -903,6 +903,9 @@ function peg$parse(input, options) {
     } else {
       peg$currPos = s0;
       s0 = peg$FAILED;
+    }
+    if (s0 === peg$FAILED) {
+      s0 = peg$parseBoolean();
     }
     peg$silentFails--;
     if (s0 === peg$FAILED) {

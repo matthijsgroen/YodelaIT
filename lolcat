@@ -1,2 +1,2 @@
 #!/bin/sh
-yarn node src/run.js "$@"
+yarn node lolcode/run.js "$@"

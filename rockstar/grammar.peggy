@@ -20,16 +20,16 @@ Statement
   / Comment
   
 Assignment
-  = variable:Variable Is _ value:(Value / PoeticNumberLiteral) { lastVarParsed = variable; return { type: "assignment", variable, value } }
-  / "Put"i _ value:ExpressionValue _ ("into"i / "in"i) _ variable:Variable { lastVarParsed = variable; return { type: "assignment", variable, value } }
-  / "Let"i _ variable:Variable _ "be"i _ value:ExpressionValue { lastVarParsed = variable; return { type: "assignment", variable, value } }
+  = variable:Variable Is _ value:(Value / PoeticNumberLiteral) { lastVarParsed = variable; return { type: "variableDeclaration", variable, value } }
+  / "Put"i _ value:ExpressionValue _ ("into"i / "in"i) _ variable:Variable { lastVarParsed = variable; return { type: "variableAssignment", variable, value } }
+  / "Let"i _ variable:Variable _ "be"i _ value:ExpressionValue { lastVarParsed = variable; return { type: "variableAssignment", variable, value } }
   / PoeticStringLiteral
   
 Increment
-  = "Build"i _ variable:Variable _ amount:"up"i|1.., (_ / "," [ ]*)| { return { type: "increment", variable, amount: amount.length } }
+  = "Build"i _ variable:Variable _ amount:"up"i|1.., (_ / "," [ ]*)| { return { type: "incrementVariable", variable, amount: amount.length } }
 
 Decrement
-  = "Knock"i _ variable:Variable _ amount:"down"i|1.., (_ / "," [ ]*)| { return { type: "decrement", variable, amount: amount.length } }
+  = "Knock"i _ variable:Variable _ amount:"down"i|1.., (_ / "," [ ]*)| { return { type: "decrementVariable", variable, amount: amount.length } }
 
 Output
   = OutputTerm _ output:ExpressionValue { return { type: "output", output } }
@@ -72,25 +72,27 @@ MultiplicativeMathExpression
   / Primary
 
 LogicalOperator
-  = a:CompareValue _ "and"i _ b:CompareValue { return { type: "logic", op: "and", a, b } }
-  / "not"i _ a:Expression  { return { type: "logic", op: "not", a } }
+  = a:CompareValue _ "and"i _ b:CompareValue { return { type: "booleanLogic", op: "and", a, b } }
+  / a:CompareValue _ "or"i _ b:CompareValue { return { type: "booleanLogic", op: "or", a, b } }
+  / a:CompareValue _ "nor"i _ b:CompareValue { return { type: "booleanLogic", op: "nor", a, b } }
+  / "not"i _ a:Expression  { return { type: "booleanLogic", op: "not", a } }
 
 FunctionCall
   = name:Variable _ "taking" _ parameters:(ExpressionValue|1.., ParamSeparator|) { return { type: "functionCall", name, parameters } }
 
 FunctionDef
-  = name:Variable _ "takes" _ parameters:(Variable|1.., ParamSeparator|) "\n" scope:Scope { return { type: "function", name, parameters, scope } }
+  = name:Variable _ "takes" _ parameters:(Variable|1.., ParamSeparator|) "\n" scope:Scope { return { type: "functionDeclaration", name, parameters, scope } }
 
 ReturnValue
   = "Give"i _ "back"i _ value:Expression { return { type: "return", value } } 
 
 Comparison
-  = a:ExpressionValue _ ("ain't" / "is" _ "not") _ b:ExpressionValue { return { type: "compare", op: "not-equal", a, b } }
-  / a:ExpressionValue _ "is" _ ("higher" / "greater" / "bigger" / "stronger") _ "than" _ b:ExpressionValue { return { type: "compare", op: "greater", a, b } }
-  / a:ExpressionValue _ "is" _ ("lower" / "less" / "smaller" / "weaker") _ "than" _ b:ExpressionValue { return { type: "compare", op: "lesser", a, b } }
-  / a:ExpressionValue _ "is" _ "as" _ ("high" / "great" / "big" / "strong") _ "as" _ b:ExpressionValue { return { type: "compare", op: "greater-equal", a, b } }
-  / a:ExpressionValue _ "is" _ "as" _ ("low" / "less" / "small" / "weak") _ "as" _ b:ExpressionValue { return { type: "compare", op: "lesser-equal", a, b } }
-  / a:ExpressionValue Is _ b:ExpressionValue { return { type: "compare", op: "equal", a, b } }
+  = a:ExpressionValue _ ("ain't" / "is" _ "not") _ b:ExpressionValue { return { type: "comparison", op: "not-equal", a, b } }
+  / a:ExpressionValue _ "is" _ ("higher" / "greater" / "bigger" / "stronger") _ "than" _ b:ExpressionValue { return { type: "comparison", op: "greater", a, b } }
+  / a:ExpressionValue _ "is" _ ("lower" / "less" / "smaller" / "weaker") _ "than" _ b:ExpressionValue { return { type: "comparison", op: "lesser", a, b } }
+  / a:ExpressionValue _ "is" _ "as" _ ("high" / "great" / "big" / "strong") _ "as" _ b:ExpressionValue { return { type: "comparison", op: "greater-equal", a, b } }
+  / a:ExpressionValue _ "is" _ "as" _ ("low" / "less" / "small" / "weak") _ "as" _ b:ExpressionValue { return { type: "comparison", op: "lesser-equal", a, b } }
+  / a:ExpressionValue Is _ b:ExpressionValue { return { type: "comparison", op: "equal", a, b } }
 
 Variable
   = VariableReference
@@ -124,7 +126,7 @@ PoeticConstant
   / BooleanFalse
   
 PoeticStringLiteral
-  = variable:Variable _ ("says" / "say" / "said") _ value:$[^\n]+ { lastVarParsed = variable; return { type: "assignment", variable, value: { type: "string", value } } }
+  = variable:Variable _ ("says" / "say" / "said") _ value:$[^\n]+ { lastVarParsed = variable; return { type: "variableDeclaration", variable, value: { type: "string", value } } }
 
 PoeticNumberLiteral
   = value:(Word|1.., _|) { 
@@ -179,6 +181,7 @@ ReservedWord
   / "and"i
   / "taking"i
   / "put"i
+  / "("
   / OutputTerm
   / NullTerm
   / CommonVarPrefix

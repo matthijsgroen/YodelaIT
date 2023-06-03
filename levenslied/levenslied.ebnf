@@ -1,0 +1,217 @@
+Program = Scope ;
+
+Scope = Statement , { "\n" , Statement } ,
+  ( "\n" | eof ) ;
+
+Statement
+  = VariableAssignment | VariableDeclaration
+  | Increment          | Decrement
+  | Output             | IfStatement
+  | Loop               | FunctionCall
+  | LoopControl        | FunctionDef
+  | ReturnValue        | Comment
+  ;
+
+VariableAssignment
+  = "Stop" , ws , ExpressionValue , ws , "in" , ws ,
+    Variable
+  | "Laat" , ws , Variable , ws , ExpressionValue , "wezen"
+  ;
+
+VariableDeclaration
+  = Variable , ws , Is , ws , ( Value | PoeticNumberLiteral )
+  | PoeticStringLiteral
+  ;
+
+Increment = "Bouw" , ws , Variable , ws ,
+  "op" , { ", " , "op" } ;
+
+Decrement = "Haal" , ws , Variable , ws ,
+  "neer" , { ", " , "neer" } ;
+
+Output = OutputTerm , ws , ExpressionValue ;
+
+IfStatement = "Als" , ws , Expression , "\n" , Scope ;
+
+Loop
+  = "Zolang" , ws , Expression , "\n" , Scope
+  | "Totdat" , ws , Expression , "\n" , Scope
+  ;
+
+LoopControl
+  = "Herbeleef"
+  | "continue"
+  | "Doorbreek de cirkel"
+  | "break"
+  ;
+
+Expression = LogicalOperator | CompareValue ;
+
+CompareValue = Comparison | ExpressionValue ;
+
+ExpressionValue = FunctionCall | AdditiveMathExpresssion ;
+
+AdditiveMathExpresssion
+  = MultiplicativeMathExpression , ws , "zonder" , ws ,
+    AdditiveMathExpresssion
+  | MultiplicativeMathExpression , ws , "met" , ws ,
+    AdditiveMathExpresssion
+  | MultiplicativeMathExpression
+  ;
+
+MultiplicativeMathExpression
+  = Primary , ws , ( "keer" | "van" ) , ws ,
+    MultiplicativeMathExpression
+  | Primary , ws , ( "verdeelt over" | "boven" ) , ws ,
+    MultiplicativeMathExpression
+  | Primary
+  ;
+
+Primary = Value | Variable ;
+
+LogicalOperator
+  = CompareValue , ws , "en" , ws , CompareValue
+  | CompareValue , ws , "of" , ws , CompareValue
+  | CompareValue , ws , "noch" , ws , CompareValue
+  | "niet" , ws , Expression
+  ;
+
+FunctionCall = Variable , ws , "ontvangt" ,
+  ExpressionValue , { ParamSeparator , ExpressionValue } ;
+
+FunctionDef = Variable , ws , "neemt" , ws ,
+  Variable , { ParamSeparator , Variable } ;
+
+ReturnValue = "geef" , ws , Expression , ws , "terug" ;
+
+Comparison
+  = ExpressionValue , ws , "niet" , ws , ExpressionValue ,
+    ws , "is" | "zijn" (* not equal *)
+  | ExpressionValue , ws , "hoger" | "groter" | "sterker" | "beter" (* groter dan *) ,
+    ws , "is" , ws , "dan" , ws , ExpressionValue
+  | ExpressionValue , ws , "lager" | "kleiner" | "zwakker" | "slechter" (* kleiner dan *) ,
+    ws , "is" , ws , "dan" , ws , ExpressionValue
+  | ExpressionValue , ws , "zo" , ws , "hoog" | "groot" | "sterk" | "goed" (* groter dan of gelijk aan *) ,
+    ws , "is" , ws , "als" , ws , ExpressionValue
+  | ExpressionValue , ws , "zo" , ws , "laag" | "klein" | "zwak" | "slecht" (* kleiner dan of gelijk aan *) ,
+    ws , "is" , ws , "als" , ws , ExpressionValue
+  | ExpressionValue , ws , Is , ws , ExpressionValue
+  ;
+
+Variable
+  = VariableReference
+  | SimpleVariable
+  | ProperVariable
+  | CommonVariable
+  ;
+
+VariableReference
+  = "het"
+  | "hij"
+  | "zij"
+  | "hem"
+  | "haar"
+  | "hun"
+  ;
+
+SimpleVariable = Word - ReservedWord ;
+
+ProperVariable = Uppercase , Word , { ws , Uppercase , Word } ;
+
+CommonVariable = CommonVarPrefix , ws , Word - ReservedWord ;
+
+Value = Number | PoeticConstant | String ;
+
+PoeticConstant
+  = EmptyString
+  | NullTerm
+  | BooleanTrue
+  | BooleanFalse
+  ;
+
+PoeticStringLiteral = Variable , ws , ( "zegt" | "zeggen" | "zeiden" ) ,
+  ws , ? all chars till end of line ? ;
+
+PoeticNumberLiteral = Word , { ws , Word } ;
+
+Word = { Alpha }- ;
+
+BooleanTrue = "juist" | "ja" | "oke" | "true" ;
+
+BooleanFalse = "fout" | "nee" | "leugens" | "false" ;
+
+Number = ( Digit19 , { Digit } | "0" ) ,
+  [ "." , { Digit }- ] ;
+
+String = '"' , ? alle karakters behalve " ? , '"' ;
+
+Comment = "(" , ? alle karakters behalve ) ? , ")" ;
+
+ReservedWord
+  = "bestaat"       | "als"      | "en"
+  | "is"            | "ontvangt" | "stop"
+  | "("             | OutputTerm | NullTerm
+  | CommonVarPrefix
+  ;
+
+EmptyString = "leeg" | "stil" | "stilte" ;
+
+NullTerm
+  = "null"
+  | "niets"
+  | "niemand"
+  | "nergens"
+  | "weg"
+  ;
+
+OutputTerm = "zeg" | "fluister" | "roep" | "schreeuw" ;
+
+CommonVarPrefix
+  = "de"
+  | "een"
+  | "mijn"
+  | "je"
+  | "jouw"
+  | "onze"
+  ;
+
+Is
+  = "is"
+  | "bestaat" , ws , "uit"
+  | "zijn"
+  | "waren"
+  ;
+
+ParamSeparator
+  = "," , ws
+  | ws , "&" , ws
+  | [ ws ] , "'n" , ws
+  | ws , "en" , ws
+  ;
+
+ws = { ? white space ? }- ;
+
+eof = ? eof ? ;
+
+Digit = "0" | Digit19 ;
+
+Digit19
+  = "1" | "2" | "3" | "4" | "5" | "6" | "7"
+  | "8" | "9"
+  ;
+
+Alpha = Letter | Uppercase ;
+
+Letter
+  = "a" | "b" | "c" | "d" | "e" | "f" | "g"
+  | "h" | "i" | "j" | "k" | "l" | "m" | "n"
+  | "o" | "p" | "q" | "r" | "s" | "t" | "u"
+  | "v" | "w" | "x" | "y" | "z"
+  ;
+
+Uppercase
+  = "a" | "b" | "c" | "d" | "e" | "f" | "g"
+  | "h" | "i" | "j" | "k" | "l" | "m" | "n"
+  | "o" | "p" | "q" | "r" | "s" | "t" | "u"
+  | "v" | "w" | "x" | "y" | "z"
+  ;

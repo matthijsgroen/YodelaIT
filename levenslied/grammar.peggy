@@ -1,4 +1,4 @@
-// Rockstar
+// Levenslied
 { let lastVarParsed = null }
 
 start = Scope
@@ -22,7 +22,7 @@ Statement
 Assignment
   = variable:Variable Is _ value:(Value / PoeticNumberLiteral) { lastVarParsed = variable; return { type: "variableDeclaration", variable, value } }
   / "Stop"i _ value:ExpressionValue _ "in"i _ variable:Variable { lastVarParsed = variable; return { type: "variableAssignment", variable, value } }
-  / "Let"i _ variable:Variable _ "be"i _ value:ExpressionValue { lastVarParsed = variable; return { type: "variableAssignment", variable, value } }
+  / "Laat"i _ variable:Variable _  value:ExpressionValue _ "wezen"i { lastVarParsed = variable; return { type: "variableAssignment", variable, value } }
   / PoeticStringLiteral
   
 Increment
@@ -67,8 +67,8 @@ AdditiveMathExpression
   / MultiplicativeMathExpression
 
 MultiplicativeMathExpression
-  = a:Primary _ ("times"i / "of"i) _ b:MultiplicativeMathExpression { return { type: "calculation", op: "times", a, b } }
-  / a:Primary _ ("over"i / "between"i) _ b:MultiplicativeMathExpression { return { type: "calculation", op: "division", a, b } }
+  = a:Primary _ ("keer"i / "van"i) _ b:MultiplicativeMathExpression { return { type: "calculation", op: "times", a, b } }
+  / a:Primary _ ("verdeelt over"i / "boven"i) _ b:MultiplicativeMathExpression { return { type: "calculation", op: "division", a, b } }
   / Primary
 
 LogicalOperator
@@ -154,7 +154,7 @@ EmptyString
   = ("leeg" / "stil" / "stilte") { return { type: "string", value: "" } }
 
 Number
-  = value:$([1-9][0-9]* ("." [0-9]+)?) { return { type: "number", value: parseFloat(value) } }
+  = value:$([0-9]+ ("." [0-9]+)?) { return { type: "number", value: parseFloat(value) } }
 
 String
   = '"' value:$([^"]+) '"' { return { type: "string", value } }

@@ -3,11 +3,20 @@
 Run Lolcode example:
 
 ```
-./lolcat run example.lol
+cd lolcat
+./lol run examples/fizzbuzz.lol
 ```
 
 Run Rockstar example:
 
 ```
-./rock run example.rock
+cd rockstar
+./rock run examples/fizzbuzz.rock
+```
+
+Run Levenslied example:
+
+```
+cd levenslied
+./leef run examples/fizzbuzz.leven
 ```

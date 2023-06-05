@@ -14,12 +14,27 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       {\
         "name": "YodelaIT",\
         "reference": "workspace:."\
+      },\
+      {\
+        "name": "levenslied",\
+        "reference": "workspace:levenslied"\
+      },\
+      {\
+        "name": "lolcode",\
+        "reference": "workspace:lolcode"\
+      },\
+      {\
+        "name": "rockstar",\
+        "reference": "workspace:rockstar"\
       }\
     ],\
     "enableTopLevelFallback": true,\
     "ignorePatternData": "(^(?:\\\\.yarn\\\\/sdks(?:\\\\/(?!\\\\.{1,2}(?:\\\\/|$))(?:(?:(?!(?:^|\\\\/)\\\\.{1,2}(?:\\\\/|$)).)*?)|$))$)",\
     "fallbackExclusionList": [\
-      ["YodelaIT", ["workspace:."]]\
+      ["YodelaIT", ["workspace:."]],\
+      ["levenslied", ["workspace:levenslied"]],\
+      ["lolcode", ["workspace:lolcode"]],\
+      ["rockstar", ["workspace:rockstar"]]\
     ],\
     "fallbackPool": [\
     ],\
@@ -28,7 +43,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {\
           "packageLocation": "./",\
           "packageDependencies": [\
-            ["commander", "npm:10.0.1"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -37,8 +51,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         ["workspace:.", {\
           "packageLocation": "./",\
           "packageDependencies": [\
-            ["YodelaIT", "workspace:."],\
-            ["commander", "npm:10.0.1"]\
+            ["YodelaIT", "workspace:."]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -50,6 +63,36 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["commander", "npm:10.0.1"]\
           ],\
           "linkType": "HARD"\
+        }]\
+      ]],\
+      ["levenslied", [\
+        ["workspace:levenslied", {\
+          "packageLocation": "./levenslied/",\
+          "packageDependencies": [\
+            ["levenslied", "workspace:levenslied"],\
+            ["commander", "npm:10.0.1"]\
+          ],\
+          "linkType": "SOFT"\
+        }]\
+      ]],\
+      ["lolcode", [\
+        ["workspace:lolcode", {\
+          "packageLocation": "./lolcode/",\
+          "packageDependencies": [\
+            ["lolcode", "workspace:lolcode"],\
+            ["commander", "npm:10.0.1"]\
+          ],\
+          "linkType": "SOFT"\
+        }]\
+      ]],\
+      ["rockstar", [\
+        ["workspace:rockstar", {\
+          "packageLocation": "./rockstar/",\
+          "packageDependencies": [\
+            ["rockstar", "workspace:rockstar"],\
+            ["commander", "npm:10.0.1"]\
+          ],\
+          "linkType": "SOFT"\
         }]\
       ]]\
     ]\

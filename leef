@@ -1,2 +1,0 @@
-#!/bin/sh
-yarn node levenslied/run.js "$@"

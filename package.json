@@ -1,7 +1,10 @@
 {
   "name": "YodelaIT",
   "packageManager": "yarn@3.5.1",
-  "dependencies": {
-    "commander": "^10.0.1"
-  }
+  "private": true,
+  "workspaces": [
+    "levenslied",
+    "lolcode",
+    "rockstar"
+  ]
 }

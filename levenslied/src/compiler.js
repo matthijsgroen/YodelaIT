@@ -258,7 +258,7 @@ const compile = (parsedCode, { safeLoops = false } = {}) => {
   if (needsCoerce || needsEqual) {
     code = coerceFunc + code;
   }
-  return `(output) => {${indent(code)}\n}`;
+  return `(output) => {\n${indent(code)}\n}`;
 };
 
 module.exports = {

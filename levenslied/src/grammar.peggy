@@ -4,7 +4,12 @@
 start = Scope
 
 Scope 
-  = statements:Statement|.., "\n"| ("\n" / EOF) { return statements }
+  = statements:Statement|.., __ Enter| __ EndOfScope { return statements }
+
+Enter "enter" = "\n"
+
+EndOfScope "einde scope"
+  = Enter / EOF
   
 Statement
   = Assignment
@@ -26,20 +31,20 @@ Assignment
   / PoeticStringLiteral
   
 Increment
-  = "Bouw"i _ variable:Variable _ amount:"op"i|1.., (_ / "," [ ]*)| { return { type: "incrementVariable", variable, amount: amount.length } }
+  = "Bouw"i _ variable:Variable _ amount:"op"i|1.., (_ / "," __)| { return { type: "incrementVariable", variable, amount: amount.length } }
 
 Decrement
-  = "Haal"i _ variable:Variable _ amount:"neer"i|1.., (_ / "," [ ]*)| { return { type: "decrementVariable", variable, amount: amount.length } }
+  = "Haal"i _ variable:Variable _ amount:"neer"i|1.., (_ / "," __)| { return { type: "decrementVariable", variable, amount: amount.length } }
 
 Output
   = OutputTerm _ output:ExpressionValue { return { type: "output", output } }
 
-IfStatement
-  = "Als"i _ expression:Expression "\n" scope:Scope { return { type: "if", condition: expression, block: scope } }
+IfStatement "conditie"
+  = "Als"i _ expression:Expression Enter scope:Scope { return { type: "if", condition: expression, block: scope } }
 
 Loop
-  = "Totdat"i _ expression:Expression "\n" scope:Scope { return { type: "loop", kind: "until", condition: expression, block: scope } }
-  / "Zolang"i _ expression:Expression "\n" scope:Scope { return { type: "loop", kind: "while", condition: expression, block: scope } }
+  = "Totdat"i _ expression:Expression __ Enter scope:Scope { return { type: "loop", kind: "until", condition: expression, block: scope } }
+  / "Zolang"i _ expression:Expression __ Enter scope:Scope { return { type: "loop", kind: "while", condition: expression, block: scope } }
 
 LoopControl
  = ("Herbeleef"i / "continue"i) { return { type: "loopControl", control: "continue" } }
@@ -81,7 +86,7 @@ FunctionCall
   = name:Variable _ "ontvangt" _ parameters:(ExpressionValue|1.., ParamSeparator|) { return { type: "functionCall", name, parameters } }
 
 FunctionDef
-  = name:Variable _ "neemt" _ parameters:(Variable|1.., ParamSeparator|) "\n" scope:Scope { return { type: "functionDeclaration", name, parameters, scope } }
+  = name:Variable _ "neemt" _ parameters:(Variable|1.., ParamSeparator|) Enter scope:Scope { return { type: "functionDeclaration", name, parameters, scope } }
 
 ReturnValue
   = "Geef"i _ value:Expression _ "terug"i { return { type: "return", value } } 
@@ -100,18 +105,18 @@ Variable
   / SimpleVariable
   / CommonVariable
 
-VariableReference
+VariableReference "referentie"
   = ("het" / "hij" / "zij" / "hem" / "haar" / "hun") {
     return lastVarParsed;
   }
 
-SimpleVariable 
+SimpleVariable "variabele"
   = name:$(!ReservedWord a:Word { return a; }) { return { type: "SimpleVariable", name };  }
 
 ProperVariable 
   = name:(!ReservedWord a:[A-Z] b:Word { return [a,b].join("") })|1.., _| { return { type: "ProperVariable", name: name.join("") }; }
 
-CommonVariable
+CommonVariable "variabele"
   = prefix:CommonVarPrefix _ name:(!ReservedWord Word) { return { type: "CommonVariable", name: [prefix, name[1]].join(" ") }; }
 
 Value
@@ -140,6 +145,8 @@ PoeticNumberLiteral
   }
   
 Word = v:((c:[a-z-.]i { return c }) / ([^ \n] { return "" }))+ { return v.join("") }
+
+
 
 BooleanTrue
   = ("juist" / "ja" / "oke" / "true") { return { type: "boolean", value: true } }
@@ -174,6 +181,7 @@ OutputTerm
   / "Fluister"i 
   / "Roep"i 
   / "Schreeuw"i
+  / "Zing"i
 
 ReservedWord
   = "bestaat"
@@ -182,6 +190,8 @@ ReservedWord
   / "is"i
   / "ontvangt"i
   / "stop"i
+  / "haal"i
+  / "bouw"i
   / "("
   / OutputTerm
   / NullTerm
@@ -197,8 +207,10 @@ CommonVarPrefix
 
 Is = (_ "is"i / _ "bestaat"i _ "uit"i / _ "zijn"i / _ "waren"i)
 
-ParamSeparator = ("," _) / (_ "&" _) / ([ ]* "'n" _) / (_ "en" _) / _
+ParamSeparator = (_ "&" _) / (__ "'n" _) / (_ "en" _) / _
 
-_ = [ ]+
+__ "spaties" = [ ,!?:;.]*
+
+_ "minstends 1 spatie" = [ ,!?:;.]+
 
 EOF = !.

@@ -5,6 +5,7 @@
   "workspaces": [
     "levenslied",
     "lolcode",
-    "rockstar"
+    "rockstar",
+    "website"
   ]
 }

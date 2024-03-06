@@ -1,0 +1,31 @@
+.layout {
+  display: grid;
+  grid-template:
+    "editor result" 600px
+    "editor code" 300px;
+  padding: 1em;
+}
+
+.code {
+  grid-area: code;
+  font-size: 0.75rem;
+}
+.code pre {
+  overflow-y: auto;
+  max-height: calc(100% - 4em);
+}
+
+.result {
+  grid-area: result;
+}
+
+.editor {
+  grid-area: editor;
+}
+
+.output {
+  background-color: black;
+  color: white;
+  overflow-y: auto;
+  max-height: 80%;
+}

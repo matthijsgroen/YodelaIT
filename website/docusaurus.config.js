@@ -38,11 +38,11 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          sidebarPath: require.resolve("./sidebars.js"),
+          // sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
+          // editUrl:
+          //   "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
         },
         blog: {
           showReadingTime: true,
@@ -71,12 +71,13 @@ const config = {
         },
         items: [
           {
-            type: "docSidebar",
-            sidebarId: "tutorialSidebar",
+            // type: "docSidebar",
+            // sidebarId: "tutorialSidebar",
             position: "left",
+            to: "/de-taal",
             label: "Documentatie",
           },
-          { to: "/try-it", label: "Probeer het zelf", position: "left" },
+          { to: "/probeer-het", label: "Probeer het zelf", position: "left" },
           { to: "/blog", label: "Blog", position: "left" },
           {
             href: "https://github.com/facebook/docusaurus",
@@ -92,8 +93,8 @@ const config = {
             title: "Docs",
             items: [
               {
-                label: "Tutorial",
-                to: "/docs/intro",
+                label: "Leer de taal",
+                to: "/de-taal",
               },
             ],
           },
@@ -115,7 +116,7 @@ const config = {
             ],
           },
           {
-            title: "More",
+            title: "Meer",
             items: [
               {
                 label: "Blog",
@@ -128,7 +129,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Kabisa.`,
       },
       prism: {
         theme: lightCodeTheme,

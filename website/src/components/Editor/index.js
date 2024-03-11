@@ -29,7 +29,7 @@ export const Editor = ({ value, onChange }) => {
   }, [editorElementRef.current]);
 
   useEffect(() => {
-    if (editorRef.current) {
+    if (editorRef.current && editorRef.current.state.doc.toString() !== value) {
       editorRef.current.dispatch({
         changes: {
           from: 0,

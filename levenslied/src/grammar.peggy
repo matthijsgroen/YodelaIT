@@ -15,6 +15,8 @@ Statement
   = Assignment
   / Increment
   / Decrement
+  / RoundUp
+  / RoundDown
   / Output
   / IfStatement
   / Loop
@@ -35,6 +37,12 @@ Increment
 
 Decrement
   = "Haal"i _ variable:Variable _ amount:"neer"i|1.., (_ / "," __)| { return { type: "decrementVariable", variable, amount: amount.length } }
+
+RoundUp
+  = "Versterk"i _ variable:Variable { return { type: "roundUp", variable } }
+
+RoundDown
+  = "Demp"i _ variable:Variable { return { type: "roundDown", variable } }
 
 Output
   = OutputTerm _ output:ExpressionValue { return { type: "output", output } }
@@ -86,18 +94,20 @@ FunctionCall
   = name:Variable _ "ontvangt" _ parameters:(ExpressionValue|1.., ParamSeparator|) { return { type: "functionCall", name, parameters } }
 
 FunctionDef
-  = name:Variable _ "neemt" _ parameters:(Variable|1.., ParamSeparator|) Enter scope:Scope { return { type: "functionDeclaration", name, parameters, scope } }
+  = name:Variable _ ("neemt" / "wil") _ parameters:(Variable|1.., ParamSeparator|) Enter scope:Scope { return { type: "functionDeclaration", name, parameters, scope } }
 
 ReturnValue
   = "Geef"i _ value:Expression _ "terug"i { return { type: "return", value } } 
 
 Comparison
-  = a:ExpressionValue _ "niet" _ b:ExpressionValue _ ("is"i / "zijn"i) { return { type: "comparison", op: "not-equal", a, b } }
-  / a:ExpressionValue _ ("hoger" / "groter" / "sterker" / "beter") _ "is" _ "dan" _ b:ExpressionValue { return { type: "comparison", op: "greater", a, b } }
-  / a:ExpressionValue _ ("lager" / "kleiner" / "zwakker" / "slechter") _ "is" _ "dan" _ b:ExpressionValue { return { type: "comparison", op: "lesser", a, b } }
-  / a:ExpressionValue _ "zo" _ ("hoog" / "groot" / "sterk" / "goed") _ "is" _ "als" _ b:ExpressionValue { return { type: "comparison", op: "greater-equal", a, b } }
-  / a:ExpressionValue _ "zo" _ ("laag" / "klein" / "zwak" / "slecht") _ "is" _ "als" _ b:ExpressionValue { return { type: "comparison", op: "lesser-equal", a, b } }
+  = a:ExpressionValue _ "niet" _ b:ExpressionValue Is { return { type: "comparison", op: "not-equal", a, b } }
+  / a:ExpressionValue Is _ "niet" _ b:ExpressionValue { return { type: "comparison", op: "not-equal", a, b } }
+  / a:ExpressionValue _ ("hoger" / "groter" / "sterker" / "beter") Is _ "dan" _ b:ExpressionValue { return { type: "comparison", op: "greater", a, b } }
+  / a:ExpressionValue _ ("lager" / "minder" / "kleiner" / "zwakker" / "slechter") _ Is _ "dan" _ b:ExpressionValue { return { type: "comparison", op: "lesser", a, b } }
+  / a:ExpressionValue _ "zo" _ ("hoog" / "groot" / "sterk" / "goed") Is _ "als" _ b:ExpressionValue { return { type: "comparison", op: "greater-equal", a, b } }
+  / a:ExpressionValue _ "zo" _ ("laag" / "klein" / "zwak" / "slecht") Is _ "als" _ b:ExpressionValue { return { type: "comparison", op: "lesser-equal", a, b } }
   / a:ExpressionValue Is _ b:ExpressionValue { return { type: "comparison", op: "equal", a, b } }
+  / a:ExpressionValue _ b:ExpressionValue Is { return { type: "comparison", op: "equal", a, b } }
 
 Variable
   = VariableReference
@@ -114,7 +124,7 @@ SimpleVariable "variabele"
   = name:$(!ReservedWord a:Word { return a; }) { return { type: "SimpleVariable", name };  }
 
 ProperVariable 
-  = name:(!ReservedWord a:[A-Z] b:Word { return [a,b].join("") })|1.., _| { return { type: "ProperVariable", name: name.join("") }; }
+  = name:(a:[A-Z] b:Word { return [a,b].join("") })|2.., _| { return { type: "ProperVariable", name: name.join(" ") }; }
 
 CommonVariable "variabele"
   = prefix:CommonVarPrefix _ name:(!ReservedWord Word) { return { type: "CommonVariable", name: [prefix, name[1]].join(" ") }; }
@@ -127,6 +137,7 @@ Value
 PoeticConstant
   = EmptyString
   / Null
+  / Mysterieus
   / BooleanTrue
   / BooleanFalse
   
@@ -144,9 +155,7 @@ PoeticNumberLiteral
     } 
   }
   
-Word = v:((c:[a-z-.]i { return c }) / ([^ \n] { return "" }))+ { return v.join("") }
-
-
+Word = v:((c:[a-z-.]i { return c }) / ([^ \n,] { return "" }))+ { return v.join("") }
 
 BooleanTrue
   = ("juist" / "ja" / "oke" / "true") { return { type: "boolean", value: true } }
@@ -156,6 +165,9 @@ BooleanFalse
  
 Null
   = NullTerm { return { type: "null", value: null } }
+
+Mysterieus
+  = MysteriousTerm { return { type: "undefined", value: undefined } }
 
 EmptyString
   = ("leeg" / "stil" / "stilte") { return { type: "string", value: "" } }
@@ -175,6 +187,9 @@ NullTerm
  / "niemand"i
  / "nergens"i
  / "weg"i
+
+MysteriousTerm
+  = "mysterieus"i
 
 OutputTerm
   = "Zeg"i 
@@ -205,10 +220,10 @@ CommonVarPrefix
   / "jouw"i
   / "onze"i
 
-Is = (_ "is"i / _ "bestaat"i _ "uit"i / _ "zijn"i / _ "waren"i)
+Is = (_ "is"i / _ "bestaat"i _ "uit"i / _ "zijn"i / _ "waren"i / _ "was"i)
 
-ParamSeparator = (_ "&" _) / (__ "'n" _) / (_ "en" _) / _
-
+ParamSeparator = (_ "&" _) / (__ "'n" _) / (_ "en" _) / ("," _)
+ 
 __ "spaties" = [ ,!?:;.]*
 
 _ "minstends 1 spatie" = [ ,!?:;.]+

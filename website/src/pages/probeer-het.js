@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "@theme/Layout";
 import { parser, compiler } from "levenslied";
-import styles from "./try-it.module.css";
+import styles from "./probeer-het.module.css";
 import { Editor } from "../components/Editor";
 import exampleScripts from "./example-scripts";
 

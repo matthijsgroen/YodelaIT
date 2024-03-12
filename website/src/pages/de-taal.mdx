@@ -1,13 +1,15 @@
+import { Example } from "../components/Example";
+
 # De taal
 
 ## Documentatie
 
 Het gebruik van documentatie in levenslied programmas wordt sterk afgeraden. Het is een lied. Het is aan het publiek om hier zelf een betekenis aan te koppelen. Als je er echt op staat om documentatie toe te voegen aan je programma, dan moet het tussen haakjes `()` staan.
 
-```
+<Example>{`
 (zet Harm = 296)
 Harm is de drijvende kracht.
-```
+`}</Example>
 
 ## Variabelen
 
@@ -15,23 +17,22 @@ Levenslied ondersteund drie soorten aan variabele namen.
 
 **Eenvoudige variabelen** zijn geldige identificatiegegevens die geen taaltrefwoorden zijn. Een eenvoudige variabelenaam mag alleen letters bevatten en mag geen spaties bevatten. Houd er rekening mee dat Levenslied geen cijfers of onderstrepingstekens in namen van variabelen toestaat. Onthoud de gouden regel van de taal van Levenslied: als je het niet kunt zingen, kun je het ook niet hebben. Eenvoudige variabelen zijn niet hoofdlettergevoelig.
 
-```
+<Example>{`
 Variabele is 1
 Harm is een zanger
 X is 2
 Y is 3
-Stop x en y in resultaat
-```
+Stop x met y in resultaat
+`}</Example>
 
 **Algemene variabelen** bestaan ​​uit een van de trefwoorden `de`, `een`, `mijn`, `je`, `jouw` of `onze`, gevolgd door witruimte en een unieke variabelenaam, die alleen kleine ASCII-letters a-z mag bevatten. Het trefwoord maakt deel uit van de naam van de variabele, dus `een jongen` is een andere variabele dan `de jongen`. Algemene variabelen zijn niet hoofdlettergevoelig.
 
-```
-My variable is 5
-Your variable is 4
-
-Put my variable plus your variable into the total
-Shout the total
-```
+<Example>{`
+Mijn variabele is 5
+Jouw variabele is 4
+Stop mijn variabele met jouw variabele in totaal
+Schreeuw totaal
+`}</Example>
 
 **Werkelijke variabelen** zijn eigennamen die uit meerdere woorden bestaan: woorden die geen taalzoekwoorden zijn, elk beginnend met een hoofdletter, gescheiden door spaties.
 (Variabelen die uit één woord bestaan, zijn altijd eenvoudige variabelen.)
@@ -45,7 +46,7 @@ Als een variabele buiten een functie wordt gedefinieerd, bevindt deze zich in ee
 
 Als u binnen een functie naar een variabele schrijft die binnen het globale bereik is gedefinieerd, schrijft u naar die variabele; u definieert geen nieuwe lokale variabele.
 
-### Een opmerking over hoofdlettergevoeligheid in Levenslied
+**Een opmerking over hoofdlettergevoeligheid in Levenslied**
 
 Levenslied-trefwoorden en namen van variabelen zijn allemaal _niet_ hoofdlettergevoelig, met uitzondering van werkelijke variabelen. Werkelijke variabelen zijn niet hoofdlettergevoelig, **afgezien van de eerste letter van elk woord, die een hoofdletter moet zijn**.
 
@@ -127,27 +128,27 @@ Voorbeelden:
 
 ## Afronden
 
-```
+<Example>{`
 X is 1.2
 versterk X
 schreeuw X
 (toont 2)
-```
+`}</Example>
 
-```
+<Example>{`
 X is 1.2
 demp X
 schreeuw X
 (toont 1)
-```
+`}</Example>
 
-```
+<Example>{`
 De radio is aan. Er klinkt muziek
 (initialiseer de radio met 3.266)
 Versterk de radio
 Zeg de radio
 (toont 4)
-```
+`}</Example>
 
 ## Poëtische Constantes
 
@@ -237,12 +238,12 @@ Voor voorwaardelijke expressies evalueren `0`, `mysterieus`, `null`, `false` en 
 
 Net als bij de If-instructie wordt een lus aangegeven met het sleutelwoord `Totdat` of `Zolang`, waardoor het volgende codeblok herhaaldelijk wordt uitgevoerd terwijl aan de expressie wordt voldaan:
 
-```
+<Example>{`
 Harm is ontzettende guru
 Zolang Harm niet niets is
 Fluister "guru"
 Haal Harm neer
-```
+`}</Example>
 
 Dat initialiseert Harm met de waarde 14 (met behulp van de letterlijke syntaxis van het poëtische getal) en vervolgens in een lus, waarbij Harm elke keer met 1 wordt verlaagd totdat Harm gelijk is aan nul (dat wil zeggen dat niets onwaar retourneert)
 
@@ -252,12 +253,12 @@ De instructies break en continue werken zoals in de meeste op blokken gebaseerde
 
 Een blok in Rockstar begint met een `Als`, `Zolang` of `Totdat`-instructie en wordt afgesloten met een lege regel of het einde van het bestand. EOF beëindigt alle open codeblokken
 
-```
+<Example>{`
 Harm is ontzettende guru
 Zolang Harm niet niets is
 Fluister het
 Haal hem neer
-```
+`}</Example>
 
 ## Functies
 
@@ -269,13 +270,13 @@ Functies worden gedeclareerd met een variabelenaam, gevolgd door het trefwoord `
 
 De functietekst is een lijst met instructies zonder lege regels. Een lege regel geeft het einde van een functielichaam aan. Functies in Levenslied hebben altijd een retourwaarde, gespecificeerd door het `return`-trefwoord en de alias `geef ... terug` en `stuur ... terug`.
 
-```
+<Example>{`
 (Deze functie telt 8 op bij de invoer en retourneert het resultaat)
 Polly wil een koekje
 Kaas is heerlijk
 Stop een koekje met kaas in je mond
 Geef het terug
-
-```
+'
+`}</Example>
 
 Functies worden aangeroepen met het trefwoord `ontvangt` en moeten minimaal één argument hebben. Meerdere argumenten worden gescheiden door een van de volgende: `,` `&` `en`.

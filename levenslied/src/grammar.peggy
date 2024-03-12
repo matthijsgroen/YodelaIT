@@ -137,7 +137,7 @@ Value
 PoeticConstant
   = EmptyString
   / Null
-  / Mysterieus
+  / Mysterious
   / BooleanTrue
   / BooleanFalse
   
@@ -166,7 +166,7 @@ BooleanFalse
 Null
   = NullTerm { return { type: "null", value: null } }
 
-Mysterieus
+Mysterious
   = MysteriousTerm { return { type: "undefined", value: undefined } }
 
 EmptyString

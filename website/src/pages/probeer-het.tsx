@@ -4,21 +4,7 @@ import { parser, compiler } from "levenslied";
 import styles from "./probeer-het.module.css";
 import { Editor } from "../components/Editor";
 import exampleScripts from "./example-scripts";
-
-function stringToBase64(string) {
-  const bytes = new TextEncoder().encode(string);
-  const binString = Array.from(bytes, (byte) =>
-    String.fromCodePoint(byte)
-  ).join("");
-  return btoa(binString);
-}
-
-function base64ToString(base64) {
-  const binString = atob(base64);
-  return new TextDecoder().decode(
-    Uint8Array.from(binString, (m) => m.codePointAt(0))
-  );
-}
+import { base64ToString, urlToEditor } from "../components/base64";
 
 const Page = () => {
   const [output, setOutput] = React.useState([""]);
@@ -32,9 +18,7 @@ const Page = () => {
 
   const setText = (text) => {
     // Usage
-    const contents = stringToBase64(text);
-    const url = new URL(document.location.href);
-    url.hash = `code/${contents}`;
+    const url = urlToEditor(text);
     history.replaceState({}, "", url);
     setInnerText(text);
   };

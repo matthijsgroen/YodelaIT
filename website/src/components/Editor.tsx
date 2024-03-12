@@ -1,12 +1,21 @@
 import React, { useEffect } from "react";
 import { basicSetup, EditorView } from "codemirror";
-// import {javascript} from "@codemirror/lang-javascript"
+import { LRLanguage } from "@codemirror/language";
+
+// export const exampleLanguage = LRLanguage.define({
+//   parser: parserWithMetadata,
+//   languageData: {
+//     commentTokens: { line: ";" },
+//   },
+// });
 
 export const Editor = ({ value, onChange }) => {
-  const editorElementRef = React.useRef();
-  const editorRef = React.useRef(null);
+  const editorElementRef = React.useRef<HTMLDivElement>(null);
+  const editorRef = React.useRef<EditorView | null>(null);
 
   React.useEffect(() => {
+    if (!editorElementRef.current) return;
+
     const editor = new EditorView({
       doc: value,
       extensions: [

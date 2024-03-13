@@ -78,7 +78,7 @@ const config = {
             label: "Documentatie",
           },
           { to: "/probeer-het", label: "Probeer het zelf", position: "left" },
-          { to: "/blog", label: "Blog", position: "left" },
+          { to: "/veel-gestelde-vragen", label: "Vragen?", position: "left" },
           {
             href: "https://github.com/facebook/docusaurus",
             label: "GitHub",

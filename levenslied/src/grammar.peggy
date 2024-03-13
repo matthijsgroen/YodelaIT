@@ -155,27 +155,28 @@ PoeticNumberLiteral
     } 
   }
   
-Word = v:((c:[a-z-.]i { return c }) / ([^ \n,] { return "" }))+ { return v.join("") }
+Word "woord"
+  = v:((c:[a-z-.]i { return c }) / ([^ \n,] { return "" }))+ { return v.join("") }
 
-BooleanTrue
-  = ("juist" / "ja" / "oke" / "true") { return { type: "boolean", value: true } }
+BooleanTrue "waarheid"
+  = ("juist" / "ja" / "oke" / "waarheid" / "true") { return { type: "boolean", value: true } }
 
-BooleanFalse
+BooleanFalse "leugens"
   = ("fout" / "nee" / "leugens" / "false") { return { type: "boolean", value: false } }
  
-Null
+Null "niets"
   = NullTerm { return { type: "null", value: null } }
 
-Mysterious
+Mysterious "mysterieus"
   = MysteriousTerm { return { type: "undefined", value: undefined } }
 
-EmptyString
+EmptyString "stilte"
   = ("leeg" / "stil" / "stilte") { return { type: "string", value: "" } }
 
-Number
+Number "getal"
   = value:$([0-9]+ ("." [0-9]+)?) { return { type: "number", value: parseFloat(value) } }
 
-String
+String "string"
   = '"' value:$([^"]+) '"' { return { type: "string", value } }
 
 Comment

@@ -14,7 +14,6 @@ const Page = () => {
   const [displayCode, setDisplayCode] = React.useState(false);
 
   let parsedText = null;
-  let error = null;
 
   const setText = (text) => {
     // Usage
@@ -25,9 +24,7 @@ const Page = () => {
 
   try {
     parsedText = parser.parse(text);
-  } catch (e) {
-    error = e;
-  }
+  } catch (e) {}
   const compiled = parsedText ? compiler.compile(parsedText) : null;
 
   useEffect(() => {
@@ -96,7 +93,6 @@ const Page = () => {
         </div>
         <div className={styles.editor}>
           <Editor value={text} onChange={(t) => setText(t)} />
-          <div>{error && error.message}</div>
         </div>
 
         <div

@@ -1,13 +1,48 @@
 import React, { useEffect } from "react";
 import { basicSetup, EditorView } from "codemirror";
-import { LRLanguage } from "@codemirror/language";
+import { linter, Diagnostic, lintGutter } from "@codemirror/lint";
+import { parser } from "levenslied";
 
-// export const exampleLanguage = LRLanguage.define({
-//   parser: parserWithMetadata,
-//   languageData: {
-//     commentTokens: { line: ";" },
-//   },
-// });
+const dutchErrorMessage = (e: {
+  found: null | string;
+  expected: (
+    | { type: "other"; description: string }
+    | { type: "literal"; text: string }
+  )[];
+}) =>
+  `Verwachte: ${e.expected
+    .map((v) => (v.type === "other" ? v.description : v.text))
+    .join(", ")}, maar vond: ${
+    e.found === null ? "eind van code" : '"' + e.found + '"'
+  }`;
+
+const levensliedLinter = linter((view) => {
+  const result: Diagnostic[] = [];
+  let parsedText = null;
+
+  const text = view.state.doc.toString();
+  try {
+    parsedText = parser.parse(text, { grammarSource: "probeer.leven" });
+  } catch (e) {
+    if (typeof e.format === "function") {
+      const pos = text
+        .split("\n")
+        .slice(0, e.location.start.line - 1)
+        .join("\n").length;
+
+      const message = dutchErrorMessage(e);
+      result.push({
+        from: pos + 1,
+        to: e.location.end.offset,
+        severity: "error",
+        message,
+        actions: [],
+      });
+    }
+  }
+
+  return result;
+});
 
 export const Editor = ({ value, onChange }) => {
   const editorElementRef = React.useRef<HTMLDivElement>(null);
@@ -20,7 +55,8 @@ export const Editor = ({ value, onChange }) => {
       doc: value,
       extensions: [
         basicSetup,
-
+        levensliedLinter,
+        lintGutter(),
         EditorView.updateListener.of((v) => {
           if (v.docChanged) {
             const text = v.state.doc.toString();

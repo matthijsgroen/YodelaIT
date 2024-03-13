@@ -2,8 +2,9 @@ import "@kabisa/ui-components/index.css";
 import CodeBlock from "@theme/CodeBlock";
 import CodeLine from "@theme/MDXComponents/Code";
 import React, { PropsWithChildren } from "react";
-import { urlToEditor } from "./base64";
+import { urlToEditor } from "../base64";
 import { Button } from "@kabisa/ui-components";
+import styles from './styles.module.css';
 
 const childrenToCode = (children: React.ReactNode): string =>
   (children?.toString() ?? "")
@@ -44,7 +45,7 @@ export const LineExample: React.FC<PropsWithChildren> = ({ children }) => {
     <span>
       <CodeLine>{code}</CodeLine>
       <Button
-        style={{padding: '0.1rem 0.4rem'}}
+        className={styles.smallButton}
         variant="tertiary"
         onClick={onClick}
       >

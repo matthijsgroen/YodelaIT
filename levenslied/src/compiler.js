@@ -217,8 +217,10 @@ const processStatements = (statements) => {
     }
     if (statement.type === "functionDeclaration") {
       scope[statement.name] = statement.parameters.map(varname);
+      let levelUpScope = currentScope;
       currentScope = statement.name;
       result.push(processFunctionDeclaration(statement));
+      currentScope = levelUpScope;
       continue;
     }
     if (statement.type === "functionCall") {

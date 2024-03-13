@@ -43,7 +43,7 @@ export const LineExample: React.FC<PropsWithChildren> = ({ children }) => {
     document.location.href = url.toString();
   };
   return (
-    <div className={classnames(styles.example)}>
+    <span className={classnames(styles.example)}>
       <CodeLine>{code}</CodeLine>
       <Button
         className={styles.inlineButton}
@@ -52,6 +52,6 @@ export const LineExample: React.FC<PropsWithChildren> = ({ children }) => {
       >
         ▶︎
       </Button>
-    </div>
+    </span>
   );
 };

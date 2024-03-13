@@ -45,8 +45,9 @@ const TWEETS: TweetItem[] = [
     date: "Apr 1, 2024",
     content: (
       <>
-        Docusaurus v2 doubles as a really nice little static site generator tool
-        for content-focused sites, love it 👏
+        🚿 Onder de douche tekende ik altijd al software diagrammen, maar nu kan
+        ik de code ook gewoon zingen! 🤯 Dit is DE <b>#innovatie</b> van 2024,
+        vergeet AI! <b>#levenslied</b>
       </>
     ),
     showOnHomepage: true,
@@ -76,9 +77,9 @@ const TWEETS: TweetItem[] = [
     date: "Apr 1, 2024",
     content: (
       <>
-        Continue to be impressed and excited about Docusaurus v2 alpha releases.
-        Already using the sidebar items generator to help monorepo workspace
-        devs create their own doc pages without any configuration needed.
+        Stiekem sinds de eerste alpha testen me al aan het verheugen op dit
+        moment! Binnenkort mag de hele wereld hier mee aan de slag!{" "}
+        <b>#excited</b> <b>#levenslied</b>. Zo trots op deze software revolutie!
       </>
     ),
     showOnHomepage: true,
@@ -100,50 +101,49 @@ const TWEETS: TweetItem[] = [
   },
   {
     url: "https://twitter.com/kabisasoftware",
+    handle: "TetzAdam",
+    name: "Adam Tetz",
+    date: "Apr 1, 2024",
+    content: (
+      <>
+        Weinig talen werken net zo goed op mobiel, front-end, backend, cloud en
+        in de terminal als deze! <b>#levenslied</b> 🔥🔥🔥
+      </>
+    ),
+    showOnHomepage: true,
+    githubUsername: "atetz",
+  },
+  {
+    url: "https://twitter.com/kabisasoftware",
     handle: "patjoshuisman",
     name: "Pat-Jos Huisman",
     date: "Apr 1, 2024",
     content: (
       <>
-        .<b>@docusaurus</b> ❤️
+        Trots op <b>@kabisasoftware</b> ❤️
+        <br />
+        <br />
+        <b>#trots</b> <b>#levenslied</b>
       </>
     ),
     showOnHomepage: true,
     githubUsername: "patjos",
   },
-  //   {
-  //     url: "https://twitter.com/debs_obrien/status/1374615572298801155",
-  //     handle: "debs_obrien",
-  //     name: "Debbie O'Brien",
-  //     date: "Apr 1, 2024",
-  //     content: (
-  //       <>
-  //         Been doing a lot of work with <b>@docusaurus</b> lately and I have to
-  //         say it is really fun to work with. A lot of really cool features. I love
-  //         that you can easily reuse content by creating a markdown file and
-  //         importing it as a component. 🔥
-  //       </>
-  //     ),
-  //     showOnHomepage: true,
-  //     githubUsername: "debs-obrien",
-  //   },
-  //   {
-  //     url: "https://twitter.com/Dr_Electron/status/1443635328376508433",
-  //     handle: "Dr_Electron",
-  //     name: "Dr.Electron",
-  //     date: "Apr 1, 2024",
-  //     content: (
-  //       <>
-  //         The #IOTA wiki is now part of the <b>@docusaurus</b> showcase. We even
-  //         have the honor of being a favorite. We are really happy that we found
-  //         this project. It helped us a lot to improve the documentation. And we
-  //         still have a lot of plans with things like tutorials, versioning and
-  //         i8n.
-  //       </>
-  //     ),
-  //     showOnHomepage: true,
-  //     githubUsername: "Dr-Electron",
-  //   },
+  {
+    url: "https://twitter.com/kabisasoftware",
+    handle: "DominicBisschop",
+    name: "Dr. Dominic",
+    date: "Apr 1, 2024",
+    content: (
+      <>
+        This is by far THE innovation we needed! The excitement for this is
+        through the roof! I will write all future software now with{" "}
+        <b>#levenslied</b>
+      </>
+    ),
+    showOnHomepage: true,
+    githubUsername: "DominicBisschop",
+  },
   //   {
   //     url: "https://twitter.com/kentcdodds/status/1323806816019468288",
   //     handle: "kentcdodds",

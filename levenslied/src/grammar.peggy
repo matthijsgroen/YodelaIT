@@ -103,7 +103,7 @@ Comparison
   = a:ExpressionValue _ "niet" _ b:ExpressionValue Is { return { type: "comparison", op: "not-equal", a, b } }
   / a:ExpressionValue Is _ "niet" _ b:ExpressionValue { return { type: "comparison", op: "not-equal", a, b } }
   / a:ExpressionValue _ ("hoger" / "groter" / "sterker" / "beter") Is _ "dan" _ b:ExpressionValue { return { type: "comparison", op: "greater", a, b } }
-  / a:ExpressionValue _ ("lager" / "minder" / "kleiner" / "zwakker" / "slechter") _ Is _ "dan" _ b:ExpressionValue { return { type: "comparison", op: "lesser", a, b } }
+  / a:ExpressionValue _ ("lager" / "minder" / "kleiner" / "zwakker" / "slechter") Is _ "dan" _ b:ExpressionValue { return { type: "comparison", op: "lesser", a, b } }
   / a:ExpressionValue _ "zo" _ ("hoog" / "groot" / "sterk" / "goed") Is _ "als" _ b:ExpressionValue { return { type: "comparison", op: "greater-equal", a, b } }
   / a:ExpressionValue _ "zo" _ ("laag" / "klein" / "zwak" / "slecht") Is _ "als" _ b:ExpressionValue { return { type: "comparison", op: "lesser-equal", a, b } }
   / a:ExpressionValue Is _ b:ExpressionValue { return { type: "comparison", op: "equal", a, b } }

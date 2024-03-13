@@ -30,6 +30,7 @@ const levensliedLinter = linter((view) => {
         .slice(0, e.location.start.line - 1)
         .join("\n").length;
 
+      console.log(e.expected);
       const message = dutchErrorMessage(e);
       result.push({
         from: pos + 1,

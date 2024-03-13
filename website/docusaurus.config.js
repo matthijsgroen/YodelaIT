@@ -97,6 +97,10 @@ const config = {
                 label: "Leer de taal",
                 to: "/de-taal",
               },
+              {
+                label: "Veel gestelde vragen",
+                to: "/veel-gestelde-vragen",
+              },
             ],
           },
           {

@@ -32,6 +32,9 @@ const varname = (variable) => {
 };
 
 const resolve = (expression) => {
+  if (!expression) {
+    return "undefined";
+  }
   if (expression.type === "string") {
     return `"${expression.value}"`;
   }
@@ -102,7 +105,6 @@ const resolve = (expression) => {
   if (expression.type === "calculation" && expression.op === "division") {
     return `(${resolve(expression.a)} / ${resolve(expression.b)})`;
   }
-  console.log(expression);
 
   return "true";
 };
@@ -148,7 +150,7 @@ const processSafeLoop = ({ condition, kind, block }) => {
 
   return `let i${loopId} = 0;\nwhile (${kind === "until" ? "!" : ""}${resolve(
     condition
-  )}) {\n  i${loopId}++;\n  if (i${loopId} > ${LOOP_MAX}) { throw new Error("loop not terminated in time"); }\n${statementBlock(
+  )}) {\n  i${loopId}++;\n  if (i${loopId} > ${LOOP_MAX}) { throw new Error("lus is niet op tijd beëindigd"); }\n${statementBlock(
     block
   )}}`;
 };
@@ -219,6 +221,10 @@ const processStatements = (statements) => {
       result.push(processFunctionDeclaration(statement));
       continue;
     }
+    if (statement.type === "functionCall") {
+      result.push(processFunctionCall(statement));
+      continue;
+    }
     if (statement.type === "return") {
       result.push(processReturn(statement));
       continue;
@@ -277,7 +283,7 @@ const coerce = (a, targetType) => {
   if (a === null && targetType === "number") {
     return 0;
   }
-  throw new Error("Cannot coerce to target type");
+  throw new Error("Kan niet naar doeltype converteren");
 }
 `;
 

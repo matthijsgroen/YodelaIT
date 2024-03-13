@@ -1,7 +1,9 @@
+import "@kabisa/ui-components/index.css";
 import CodeBlock from "@theme/CodeBlock";
 import CodeLine from "@theme/MDXComponents/Code";
 import React, { PropsWithChildren } from "react";
 import { urlToEditor } from "./base64";
+import { Button } from "@kabisa/ui-components";
 
 const childrenToCode = (children: React.ReactNode): string =>
   (children?.toString() ?? "")
@@ -12,35 +14,42 @@ const childrenToCode = (children: React.ReactNode): string =>
 
 export const Example: React.FC<PropsWithChildren> = ({ children }) => {
   const code = childrenToCode(children);
+
+  const onClick = () => {
+    const url = urlToEditor(code);
+    document.location.href = url.toString();
+  };
+
   return (
     <div style={{ position: "relative" }}>
       <CodeBlock>{code}</CodeBlock>
-      <button
-        onClick={() => {
-          const url = urlToEditor(code);
-          document.location.href = url.toString();
-        }}
+      <Button
+        variant="tertiary"
         style={{ position: "absolute", bottom: 0, right: 0 }}
+        onClick={onClick}
       >
         Probeer uit ▶︎
-      </button>
+      </Button>
     </div>
   );
 };
 
 export const LineExample: React.FC<PropsWithChildren> = ({ children }) => {
   const code = childrenToCode(children);
+  const onClick = () => {
+    const url = urlToEditor(code);
+    document.location.href = url.toString();
+  };
   return (
     <span>
       <CodeLine>{code}</CodeLine>
-      <button
-        onClick={() => {
-          const url = urlToEditor(code);
-          document.location.href = url.toString();
-        }}
+      <Button
+        style={{padding: '0.1rem 0.4rem'}}
+        variant="tertiary"
+        onClick={onClick}
       >
         ▶︎
-      </button>
+      </Button>
     </span>
   );
 };

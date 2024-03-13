@@ -26,7 +26,7 @@ export const Example: React.FC<PropsWithChildren> = ({ children }) => {
       <CodeBlock>{code}</CodeBlock>
       <Button
         variant="tertiary"
-        style={{ position: "absolute", bottom: 0, right: 0 }}
+        className={styles.blockButton}
         onClick={onClick}
       >
         Probeer uit ▶︎
@@ -45,7 +45,7 @@ export const LineExample: React.FC<PropsWithChildren> = ({ children }) => {
     <span>
       <CodeLine>{code}</CodeLine>
       <Button
-        className={styles.smallButton}
+        className={styles.inlineButton}
         variant="tertiary"
         onClick={onClick}
       >

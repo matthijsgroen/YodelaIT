@@ -1,3 +1,9 @@
-.smallButton {
-    padding: 0.1rem 0.4rem
+.inlineButton {
+  padding: 0.1rem 0.4rem;
+}
+
+.blockButton {
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }

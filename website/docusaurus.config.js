@@ -1,8 +1,9 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require("prism-react-renderer/themes/github");
-const darkCodeTheme = require("prism-react-renderer/themes/dracula");
+const { themes } = require("prism-react-renderer");
+const lightCodeTheme = themes.github;
+const darkCodeTheme = themes.dracula;
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -80,8 +81,8 @@ const config = {
           { to: "/probeer-het", label: "Probeer het zelf", position: "left" },
           { to: "/veel-gestelde-vragen", label: "Vragen?", position: "left" },
           {
-            href: "https://github.com/facebook/docusaurus",
-            label: "GitHub",
+            href: "https://kabisa.nl",
+            label: "Kabisa",
             position: "right",
           },
         ],
@@ -116,15 +117,19 @@ const config = {
             ],
           },
           {
-            title: "Meer",
+            title: "Contact",
             items: [
               {
-                label: "Blog",
-                to: "/blog",
+                label: "Kabisa",
+                href: "https://kabisa.nl",
               },
               {
-                label: "GitHub",
-                href: "https://github.com/facebook/docusaurus",
+                label: "+31 (0) 495 430 798",
+                href: "tel:0031495430798",
+              },
+              {
+                label: "info@kabisa.nl",
+                href: "mailto:info@kabisa.nl",
               },
             ],
           },
@@ -135,7 +140,23 @@ const config = {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
       },
+      // announcementBar: {
+      //   id: "announcementBar-3", // Increment on change
+      //   content: `🤪 Deze site was de 1 April 2024 grap van <a target="_blank" href="https://kabisa.nl"/>Kabisa</a> 🥳️`,
+      // },
     }),
+  plugins: [
+    [
+      "@docusaurus/plugin-ideal-image",
+      {
+        quality: 70,
+        max: 1030, // max resized image's size.
+        min: 640, // min resized image's size. if original is lower, use that size.
+        steps: 2, // the max number of images generated between min and max (inclusive)
+        disableInDev: false,
+      },
+    ],
+  ],
 };
 
 module.exports = config;

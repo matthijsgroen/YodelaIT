@@ -13,6 +13,6 @@
 }
 
 [data-theme='dark'] .example button {
-    background:var(--ifm-color-content);
+    background:var(--subtle-color);
     color:black;
 }

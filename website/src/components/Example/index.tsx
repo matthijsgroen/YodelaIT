@@ -4,7 +4,8 @@ import CodeLine from "@theme/MDXComponents/Code";
 import React, { PropsWithChildren } from "react";
 import { urlToEditor } from "../base64";
 import { Button } from "@kabisa/ui-components";
-import styles from './styles.module.css';
+import styles from "./styles.module.css";
+import classnames from "classnames";
 
 const childrenToCode = (children: React.ReactNode): string =>
   (children?.toString() ?? "")
@@ -22,7 +23,7 @@ export const Example: React.FC<PropsWithChildren> = ({ children }) => {
   };
 
   return (
-    <div style={{ position: "relative" }}>
+    <div className={classnames(styles.example)}>
       <CodeBlock>{code}</CodeBlock>
       <Button
         variant="tertiary"
@@ -42,7 +43,7 @@ export const LineExample: React.FC<PropsWithChildren> = ({ children }) => {
     document.location.href = url.toString();
   };
   return (
-    <span>
+    <div className={classnames(styles.example)}>
       <CodeLine>{code}</CodeLine>
       <Button
         className={styles.inlineButton}
@@ -51,6 +52,6 @@ export const LineExample: React.FC<PropsWithChildren> = ({ children }) => {
       >
         ▶︎
       </Button>
-    </span>
+    </div>
   );
 };

@@ -46,21 +46,22 @@ const QUOTES = [
     ),
   },
   {
-    thumbnail: require("./quotes/christopher-chedeau.jpg"),
-    name: "Ricky Vetter",
+    thumbnail: require("./quotes/harm.png"),
+    name: "Harm de Laat",
     title: translate({
-      id: "homepage.quotes.risky-vetter.title",
-      message: "ReasonReact Developer",
-      description: "Title of quote of Ricky Vetter on the home page",
+      id: "homepage.quotes.harm.title",
+      message: "Levenslied certificatie trainer",
+      description: "Title of quote of Harm on the home page",
     }),
     text: (
       <Translate
-        id="homepage.quotes.risky-vetter"
-        description="Quote of Ricky Vetter on the home page"
+        id="homepage.quotes.harm"
+        description="Quote of Harm on the home page"
       >
-        Docusaurus has been a great choice for the ReasonML family of projects.
-        It makes our documentation consistent, i18n-friendly, easy to maintain,
-        and friendly for new contributors.
+        Ik geef nu ruim 3 maanden training in Levenslied. Het is een pittige
+        training vol emotie. Het helpt in het bepalen van je 'Why'.
+        Ontwikkelaars komen geroerd door de cursus. Meestal ontvang ik nog
+        maandenlang bedankjes in mijn email hoe het iedereen heeft geraakt.
       </Translate>
     ),
   },

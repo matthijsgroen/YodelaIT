@@ -4,5 +4,6 @@
   "dependencies": {
     "commander": "^10.0.1"
   },
+  "main": "./src/index.js",
   "bin": "./leef"
 }

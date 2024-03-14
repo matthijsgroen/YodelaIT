@@ -3,13 +3,23 @@ let needsCoerce = false;
 let needsAdd = false;
 let useSafeLoops = false;
 let safeLoopCounter = 0;
+/**
+ * @type Record<string, string[]>
+ */
+let scope = { global: [] };
+/**
+ * @type string[]
+ */
+let needsInitialize = [];
+let currentScope = "global";
+
 const LOOP_MAX = 10_000;
 
 const varname = (variable) => {
   const firstLower =
     variable.type === "CommonVariable" || variable.type === "SimpleVariable";
 
-  return variable.name
+  const scopeVar = variable.name
     .split(/\s+/)
     .map((w, i) =>
       i === 0 && firstLower
@@ -17,14 +27,22 @@ const varname = (variable) => {
         : w[0].toUpperCase() + w.slice(1).toLowerCase()
     )
     .join("");
+
+  return scopeVar;
 };
 
 const resolve = (expression) => {
+  if (!expression) {
+    return "undefined";
+  }
   if (expression.type === "string") {
     return `"${expression.value}"`;
   }
   if (expression.type === "number") {
     return `${expression.value}`;
+  }
+  if (expression.type === "undefined") {
+    return "undefined";
   }
   if (expression.type === "null") {
     return "null";
@@ -34,7 +52,14 @@ const resolve = (expression) => {
     expression.type === "ProperVariable" ||
     expression.type === "SimpleVariable"
   ) {
-    return varname(expression);
+    const scopeVar = varname(expression);
+    if (
+      !scope[currentScope].includes(scopeVar) &&
+      !needsInitialize.includes(scopeVar)
+    ) {
+      needsInitialize.push(scopeVar);
+    }
+    return scopeVar;
   }
   if (expression.type === "comparison" && expression.op === "equal") {
     needsEqual = true;
@@ -65,7 +90,10 @@ const resolve = (expression) => {
     return `(${resolve(expression.a)} || ${resolve(expression.b)})`;
   }
   if (expression.type === "calculation" && expression.op === "subtraction") {
-    return `(${resolve(expression.a)} - ${resolve(expression.b)})`;
+    needsCoerce = true;
+    return `(coerce(${resolve(expression.a)}, "number") - ${resolve(
+      expression.b
+    )})`;
   }
   if (expression.type === "calculation" && expression.op === "addition") {
     needsAdd = true;
@@ -77,13 +105,15 @@ const resolve = (expression) => {
   if (expression.type === "calculation" && expression.op === "division") {
     return `(${resolve(expression.a)} / ${resolve(expression.b)})`;
   }
-  console.log(expression);
 
   return "true";
 };
 
-const processVarDeclaration = ({ variable, value }) =>
-  `let ${processVarAssignment({ variable, value })}`;
+const processVarDeclaration = ({ variable, value }) => {
+  const name = varname(variable);
+  needsInitialize = needsInitialize.filter((v) => v !== name);
+  return `let ${processVarAssignment({ variable, value })}`;
+};
 
 const processVarAssignment = ({ variable, value }) =>
   `${varname(variable)} = ${resolve(value)};`;
@@ -97,10 +127,13 @@ const indent = (code) =>
 const statementBlock = (statements) =>
   "\n" + indent(processStatements(statements)) + "\n";
 
-const processFunctionDeclaration = ({ name, parameters, scope }) =>
-  `const ${varname(name)} = (${parameters
+const processFunctionDeclaration = ({ name, parameters, scope }) => {
+  const functionName = varname(name);
+  needsInitialize = needsInitialize.filter((v) => v !== functionName);
+  return `const ${varname(name)} = (${parameters
     .map(varname)
     .join(", ")}) => {${statementBlock(scope)}};\n`;
+};
 
 const processFunctionCall = ({ name, parameters }) =>
   `${varname(name)}(${parameters.map(resolve).join(", ")})`;
@@ -117,7 +150,7 @@ const processSafeLoop = ({ condition, kind, block }) => {
 
   return `let i${loopId} = 0;\nwhile (${kind === "until" ? "!" : ""}${resolve(
     condition
-  )}) {\n  i${loopId}++;\n  if (i${loopId} > ${LOOP_MAX}) { throw new Error("loop not terminated in time"); }\n${statementBlock(
+  )}) {\n  i${loopId}++;\n  if (i${loopId} > ${LOOP_MAX}) { throw new Error("lus is niet op tijd beëindigd"); }\n${statementBlock(
     block
   )}}`;
 };
@@ -144,6 +177,20 @@ const processDecrementVariable = ({ variable, amount }) => {
   )}, "number") - ${amount};`;
 };
 
+const processRoundDown = ({ variable }) => {
+  needsCoerce = true;
+  return `${resolve(variable)} = Math.floor(coerce(${resolve(
+    variable
+  )}, "number"));`;
+};
+
+const processRoundUp = ({ variable }) => {
+  needsCoerce = true;
+  return `${resolve(variable)} = Math.ceil(coerce(${resolve(
+    variable
+  )}, "number"));`;
+};
+
 const processComment = ({ content }) => `// ${content}`;
 
 const processStatements = (statements) => {
@@ -151,15 +198,33 @@ const processStatements = (statements) => {
 
   for (const statement of statements) {
     if (statement.type === "variableDeclaration") {
+      scope[currentScope].push(varname(statement.variable));
       result.push(processVarDeclaration(statement));
       continue;
     }
     if (statement.type === "variableAssignment") {
-      result.push(processVarAssignment(statement));
+      if (
+        scope[currentScope].includes(varname(statement.variable)) ||
+        scope["global"].includes(varname(statement.variable))
+      ) {
+        result.push(processVarAssignment(statement));
+      } else {
+        scope[currentScope].push(varname(statement.variable));
+        result.push(processVarDeclaration(statement));
+      }
+
       continue;
     }
     if (statement.type === "functionDeclaration") {
+      scope[statement.name] = statement.parameters.map(varname);
+      let levelUpScope = currentScope;
+      currentScope = statement.name;
       result.push(processFunctionDeclaration(statement));
+      currentScope = levelUpScope;
+      continue;
+    }
+    if (statement.type === "functionCall") {
+      result.push(processFunctionCall(statement));
       continue;
     }
     if (statement.type === "return") {
@@ -194,6 +259,14 @@ const processStatements = (statements) => {
       result.push(processDecrementVariable(statement));
       continue;
     }
+    if (statement.type === "roundDown") {
+      result.push(processRoundDown(statement));
+      continue;
+    }
+    if (statement.type === "roundUp") {
+      result.push(processRoundUp(statement));
+      continue;
+    }
     if (statement.type === "comment") {
       result.push(processComment(statement));
       continue;
@@ -212,7 +285,7 @@ const coerce = (a, targetType) => {
   if (a === null && targetType === "number") {
     return 0;
   }
-  throw new Error("Cannot coerce to target type");
+  throw new Error("Kan niet naar doeltype converteren");
 }
 `;
 
@@ -247,6 +320,9 @@ const compile = (parsedCode, { safeLoops = false } = {}) => {
   needsCoerce = false;
   needsAdd = false;
   useSafeLoops = safeLoops;
+  scope = { global: [] };
+  needsInitialize = [];
+  currentScope = "global";
 
   let code = processStatements(parsedCode);
   if (needsEqual) {
@@ -258,7 +334,13 @@ const compile = (parsedCode, { safeLoops = false } = {}) => {
   if (needsCoerce || needsEqual) {
     code = coerceFunc + code;
   }
-  return `(output) => {${indent(code)}\n}`;
+  if (needsInitialize.length > 0) {
+    const initCode = needsInitialize
+      .map((name) => `let ${name} = undefined;\n`)
+      .join("");
+    code = initCode + code;
+  }
+  return `(output) => {\n${indent(code)}\n}`;
 };
 
 module.exports = {

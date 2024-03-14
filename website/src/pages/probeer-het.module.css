@@ -1,0 +1,55 @@
+.layout {
+  display: grid;
+  grid-template:
+    "topbar topbar" min-content
+    "editor result" min-content
+    "editor code" 40% / 1fr 1fr;
+  max-width: 100vw;
+  gap: 1rem;
+  padding: 1em;
+}
+
+.code {
+  grid-area: code;
+  font-size: 0.75rem;
+}
+.code pre {
+  overflow: auto;
+}
+
+.result {
+  grid-area: result;
+}
+
+.editor {
+  grid-area: editor;
+  max-width: 45vw;
+}
+.topbar {
+  grid-area: topbar;
+}
+
+.output {
+  background-color: black;
+  color: white;
+  overflow: auto;
+  max-height: 60vh;
+  max-width: 45vw;
+}
+
+.compiled {
+  overflow: auto;
+  font-size: 0.75rem;
+  max-height: 60vh;
+  max-width: 45vw;
+}
+
+.toolbar {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.examplesDropdownWrapper > button {
+  color: var(--font-color);
+}

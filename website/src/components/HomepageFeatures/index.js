@@ -9,21 +9,20 @@ const FeatureList = [
     description: (
       <>
         Kabisa Levenslied was vanaf de grond af ontworpen voor maximale
-        begrijpelijkheid. Niets is zo duidelijk als emoties en passie. Onze
-        passie voor software development heeft dus ook zeker een bijdrage gedaan
-        om het maximale uit deze taal te halen. En omdat wij het maximale uit de
-        taal kunnen halen, kunnen we ook het maximale eruit halen voor de
-        software voor onze klanten!
+        begrijpelijkheid. Onze passie voor software development heeft dus ook
+        zeker een bijdrage gedaan om het maximale uit deze taal te halen.
+        Allemaal om het maximale eruit te halen voor voor onze klanten!
       </>
     ),
   },
   {
-    title: "Focus on What Matters",
+    title: "Doelgericht",
     Svg: require("@site/static/img/undraw_docusaurus_tree.svg").default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Veel software slaat de plank mis. Het weet je niet te raken. Dat is
+        verleden tijd! Levenslied raakt je recht in het hart. Daar kan je
+        emotioneel van worden. Maar het maakt je sterker. 💪🏼
       </>
     ),
   },

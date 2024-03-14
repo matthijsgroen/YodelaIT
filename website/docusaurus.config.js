@@ -68,13 +68,11 @@ const config = {
       navbar: {
         title: "Levenslied",
         logo: {
-          alt: "My Site Logo",
+          alt: "Levenslied logo",
           src: "img/logo.svg",
         },
         items: [
           {
-            // type: "docSidebar",
-            // sidebarId: "tutorialSidebar",
             position: "left",
             to: "/docs",
             label: "Documentatie",
@@ -92,11 +90,15 @@ const config = {
         style: "dark",
         links: [
           {
-            title: "Docs",
+            title: "Documentatie",
             items: [
               {
                 label: "Leer de taal",
                 to: "/docs",
+              },
+              {
+                label: "Use cases",
+                to: "/docs/use-cases",
               },
               {
                 label: "Veel gestelde vragen",

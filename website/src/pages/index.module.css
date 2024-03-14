@@ -48,6 +48,10 @@
   padding: 40px 0;
 }
 
+.section :global(.avatar__photo) {
+  background-color: var(--ifm-color-primary);
+}
+
 .sectionAlt {
   background-color: var(--ifm-color-emphasis-100);
 }

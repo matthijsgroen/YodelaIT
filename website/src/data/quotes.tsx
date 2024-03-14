@@ -5,43 +5,43 @@ import Translate, { translate } from "@docusaurus/Translate";
 
 const QUOTES = [
   {
-    thumbnail: require("./quotes/christopher-chedeau.jpg"),
-    name: 'Christopher "vjeux" Chedeau',
+    thumbnail: require("./quotes/niels.png"),
+    name: "Niels Scheurleer",
     title: translate({
-      id: "homepage.quotes.christopher-chedeau.title",
-      message: "Lead Prettier Developer",
-      description: "Title of quote of Christopher Chedeau on the home page",
+      id: "homepage.quotes.niels.title",
+      message: "Groepsleider bij Kabisa",
+      description: "Title of quote of Niels on the home page",
     }),
     text: (
       <Translate
-        id="homepage.quotes.christopher-chedeau"
-        description="Quote of Christopher Chedeau on the home page"
+        id="homepage.quotes.niels"
+        description="Quote of Niels on the home page"
       >
-        I&apos;ve helped open source many projects at Facebook and every one
-        needed a website. They all had very similar constraints: the
-        documentation should be written in markdown and be deployed via GitHub
-        pages. I’m so glad that Docusaurus now exists so that I don’t have to
-        spend a week each time spinning up a new one.
+        Ik werk hard aan de persoonlijke ontwikkeling van mijn ontwikkelaars.
+        Door het gebruik van Levenslied raken de ontwikkelaars veel meer in
+        verbinding met hun innerlijke zelf en emoties. Dit creëert een unieke
+        groei van mijn ontwikkelaars op profesioneel vlak, maar vooral ook als
+        mens.
       </Translate>
     ),
   },
   {
-    thumbnail: require("./quotes/christopher-chedeau.jpg"),
-    name: "Hector Ramos",
+    thumbnail: require("./quotes/pascal.png"),
+    name: "Pascal Widdershoven",
     title: translate({
-      id: "homepage.quotes.hector-ramos.title",
-      message: "Lead React Native Advocate",
+      id: "homepage.quotes.pascal.title",
+      message: "Chief Experimental Technologies",
       description: "Title of quote of Hector Ramos on the home page",
     }),
     text: (
       <Translate
-        id="homepage.quotes.hector-ramos"
-        description="Quote of Hector Ramos on the home page"
+        id="homepage.quotes.pascal"
+        description="Quote of Pascal on the home page"
       >
-        Open source contributions to the React Native docs have skyrocketed
-        after our move to Docusaurus. The docs are now hosted on a small repo in
-        plain markdown, with none of the clutter that a typical static site
-        generator would require. Thanks Slash!
+        Wij meten de prestaties van onze ontwikkelaars strict op de hoeveelheid
+        regels code. Sinds onze volledige overstap op Levenslied zijn de
+        hoeveelheid regels zo hard toegenomen, ik heb nog nooit zulke
+        productieve ontwikkelaars gehad! Dank Levenslied!
       </Translate>
     ),
   },

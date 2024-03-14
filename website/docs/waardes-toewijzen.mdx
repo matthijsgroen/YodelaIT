@@ -1,0 +1,37 @@
+---
+sidebar_position: 4
+---
+
+# Waardes toewijzen
+
+Letterlijke tekenreeksen in Levenslied gebruiken dubbele aanhalingstekens.
+
+`"Hallo San Francisco"`
+
+Numerieke letterlijke getallen in Levenslied worden geschreven als decimale getallen
+
+`123`  
+`3.141592654`
+
+Toewijzing wordt gedaan door `stop <expressie> in <variabele>` of `laat <variabele> <expressie> wezen`:
+
+- <LineExample>stop 123 in X</LineExample>, wordt de waarde 123 aan de variabele
+  X toegewezen
+- <LineExample>stop "Hallo Weert" in de boodschap</LineExample>, wordt de waarde
+  `'Hallo Weert'` aan de variabele `de boodschap` toegewezen
+- <LineExample>Laat mijn saldo 1000000 wezen</LineExample>, dan wordt de waarde
+  1000000 opgeslagen in de variabele `mijn saldo`
+- <LineExample>{`Laat de overlevenden de dapperen zonder de gevallenen wezen`}</LineExample> de
+  gevallenen van de dapperen aftrekken en het resultaat opslaan in de
+  overlevenden
+
+## Verhogen en verlagen
+
+Verhogen en verlagen worden ondersteund door de instructies `Bouw {variable} op` en `Haal {variable} neer`. Als u meer dan één op- of neerwaartse factor in de verklaring optelt, wordt het aantal keren verhoogd of verlaagd als er `op` of `neer` in de verklaring voorkomen. Er kan een komma tussen elke `op` en `neer` staan.
+
+- <LineExample>Bouw mijn wereld op</LineExample> verhoogt de waarde die in `mijn
+  wereld` is opgeslagen met 1.
+- <LineExample>Haal de muren neer</LineExample>, wordt de waarde die in `de
+  muren` is opgeslagen met 1 verlaagd
+- <LineExample>Haal de muren neer, neer</LineExample> Omlaag verlaagt de waarde die
+  in `de muren` is opgeslagen met 2

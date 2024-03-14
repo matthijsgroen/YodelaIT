@@ -1,0 +1,41 @@
+---
+sidebar_position: 7
+---
+
+# Vergelijkingen
+
+Net als de operator single-is gelijk in Visual Basic en sommige scripttalen, wordt het sleutelwoord `is` in Levenslied verschillend geïnterpreteerd, afhankelijk van of het verschijnt als onderdeel van een instructie of als onderdeel van een expressie. `niet ... is` is de logische ontkenning van het trefwoord `is`.
+
+Vergelijking in Levenslied kan alleen binnen een uitdrukking worden gedaan.
+
+`Tommy is niemand` initialiseert de variabele `Tommy` met de waarde `niemand`
+`Als Tommy niemand is`, wordt het volgende blok uitgevoerd als en alleen als de variabele `Tommy` gelijk is aan `niemand`
+
+Vergelijking kan ook worden gedaan met elke alias van `is`:
+
+- `als hij weg is`
+- `als de kat mysterieus was`
+- `als dromen echt zijn`
+
+ontkenningen kunnen hier ook mee worden gedaan
+
+- `als hij niet weg is`
+- `als dromen niet echt zijn`
+
+Levenslied ondersteunt ook de volgende vergelijkingssyntaxis:
+
+- `hoger/groter/sterker/beter is dan` om ‘groter dan’ aan te duiden
+- `lager/minder/kleiner/zwakker/slechter is dan` om ‘minder dan’ aan te duiden
+- `zo hoog/groot/sterk/goed is als` om ‘groter dan of gelijk aan’ aan te duiden
+- `zo laag/slecht/klein/zwak is als` om ‘kleiner dan of gelijk aan’ aan te duiden
+
+# Logische operaties
+
+Levenslied heeft 4 verschillende logische operatoren die hun operand(en) eerst op basis van waarheid omzetten in een booleaanse waarde.
+
+- `A en B` geven de Conjunctie terug
+- `A of B` retourneert de Disjunctie
+- `A noch B` retourneert de gezamenlijke ontkenning
+- `niet A` retourneert de ontkenning van zijn enige argument.
+
+Alle logische operatoren maken kortsluiting. Dit betekent dat als de evaluatie van het eerste argument aan de operator een resultaat garandeert, het andere argument niet wordt geëvalueerd.

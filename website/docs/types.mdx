@@ -1,0 +1,25 @@
+---
+sidebar_position: 3
+---
+
+# Types
+
+Levenslied gebruikt een soortgelijk typesysteem als gedefinieerd door het ECMAScript-typesysteem, behalve dat `undefined` niet erg goed te zingen is, dus gebruiken we in plaats daarvan mysterieus.
+
+- `Mysterieus` - de waarde van elke variabele waaraan geen waarde is toegewezen, aangegeven met het trefwoord mysterieus
+- `Null` - het null-type. Evalueert als gelijk aan nul en gelijk aan false. De trefwoorden `niets`, `nergens`, `niemand` en `weg` worden gedefinieerd als aliassen voor `null`
+- `Boolean` - een logische entiteit met twee waarden waar en onwaar.
+  `juist`, `ja` en `oke` zijn geldige aliassen voor waar
+  `fout`, `nee` en `leugens` zijn geldige aliassen voor onwaar
+- `Getal` - Getallen in Levenslied zijn drijvende-kommagetallen met dubbele precisie, opgeslagen volgens de IEEE 754-standaard.
+- `String` - Levenslied-strings zijn reeksen van 16-bits geheeltallige waarden zonder teken die UTF-16-code-eenheden vertegenwoordigen. `leeg`, `stil` en `stilte` zijn aliassen voor de lege tekenreeks ("").
+
+## Waarheid
+
+De resultaten van vergelijkingen zijn vaak gebaseerd op een concept dat ‘waarheid’ wordt genoemd. Als de waarde waar is, wordt deze impliciet omgezet in waar. Als het onwaar is, wordt het impliciet omgezet in onwaar.
+
+- Mysterieus - Onwaar
+- Null - Onwaar
+- Boolean - Waarheid als waar, onwaar als onwaar
+- Getal - Indien gelijk aan 0: onwaar. Anders waar.
+- String - Waarheid (null is het valse equivalent)

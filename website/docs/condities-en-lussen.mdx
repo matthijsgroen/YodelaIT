@@ -1,0 +1,37 @@
+---
+sidebar_position: 9
+---
+
+# Condities en lussen
+
+## Condities
+
+Voorwaardelijke expressies beginnen met het trefwoord `Als`, gevolgd door een expressie. Als de expressie `true` oplevert, wordt het daaropvolgende codeblok uitgevoerd.
+
+Voor voorwaardelijke expressies evalueren `0`, `mysterieus`, `null`, `false` en de `lege string` allemaal naar `false`, en al het andere naar `true`.
+
+## Lussen
+
+Net als bij de If-instructie wordt een lus aangegeven met het sleutelwoord `Totdat` of `Zolang`, waardoor het volgende codeblok herhaaldelijk wordt uitgevoerd terwijl aan de expressie wordt voldaan:
+
+<Example>{`
+Harm is ontzettende guru
+Zolang Harm niet niets is
+Fluister "guru"
+Haal Harm neer
+`}</Example>
+
+Dat initialiseert Harm met de waarde 14 (met behulp van de letterlijke syntaxis van het poëtische getal) en vervolgens in een lus, waarbij Harm elke keer met 1 wordt verlaagd totdat Harm gelijk is aan nul (dat wil zeggen dat niets onwaar retourneert)
+
+De instructies break en continue werken zoals in de meeste op blokken gebaseerde talen. Levenslied definieert `Doorbreek de cirkel` als een alias voor `break` en `Herbeleef` als een alias voor `continue`.
+
+## Blokken
+
+Een blok in Levenslied begint met een `Als`, `Zolang` of `Totdat`-instructie en wordt afgesloten met een lege regel of het einde van het bestand. EOF beëindigt alle open codeblokken
+
+<Example>{`
+Harm is ontzettende guru
+Zolang Harm niet niets is
+Fluister het
+Haal hem neer
+`}</Example>

@@ -111,15 +111,15 @@ const config = {
             items: [
               {
                 label: "Stack Overflow",
-                href: "https://stackoverflow.com/questions/tagged/docusaurus",
+                href: "https://stackoverflow.com/questions/tagged/levenslied",
               },
               {
-                label: "Discord",
-                href: "https://discordapp.com/invite/docusaurus",
+                label: "Meetup locaties",
+                href: "https://www.google.nl/maps/search/Karaoke+bar/",
               },
               {
-                label: "Twitter",
-                href: "https://twitter.com/docusaurus",
+                label: "Twitter / X",
+                href: "https://twitter.com/kabisasoftware",
               },
             ],
           },

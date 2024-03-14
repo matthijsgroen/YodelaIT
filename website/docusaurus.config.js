@@ -68,13 +68,11 @@ const config = {
       navbar: {
         title: "Levenslied",
         logo: {
-          alt: "My Site Logo",
+          alt: "Levenslied logo",
           src: "img/logo.svg",
         },
         items: [
           {
-            // type: "docSidebar",
-            // sidebarId: "tutorialSidebar",
             position: "left",
             to: "/docs",
             label: "Documentatie",
@@ -92,11 +90,15 @@ const config = {
         style: "dark",
         links: [
           {
-            title: "Docs",
+            title: "Documentatie",
             items: [
               {
                 label: "Leer de taal",
                 to: "/docs",
+              },
+              {
+                label: "Use cases",
+                to: "/docs/use-cases",
               },
               {
                 label: "Veel gestelde vragen",
@@ -109,15 +111,15 @@ const config = {
             items: [
               {
                 label: "Stack Overflow",
-                href: "https://stackoverflow.com/questions/tagged/docusaurus",
+                href: "https://stackoverflow.com/questions/tagged/levenslied",
               },
               {
-                label: "Discord",
-                href: "https://discordapp.com/invite/docusaurus",
+                label: "Meetup locaties",
+                href: "https://www.google.nl/maps/search/Karaoke+bar/",
               },
               {
-                label: "Twitter",
-                href: "https://twitter.com/docusaurus",
+                label: "Twitter / X",
+                href: "https://twitter.com/kabisasoftware",
               },
             ],
           },

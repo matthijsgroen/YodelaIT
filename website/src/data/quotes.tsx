@@ -50,7 +50,7 @@ const QUOTES = [
     name: "Harm de Laat",
     title: translate({
       id: "homepage.quotes.harm.title",
-      message: "Levenslied certificatie trainer",
+      message: "Trainer Levenslied Certificeringen",
       description: "Title of quote of Harm on the home page",
     }),
     text: (

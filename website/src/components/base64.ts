@@ -13,10 +13,10 @@ export const base64ToString = (base64) => {
   );
 };
 
-export const urlToEditor = (codeSample: string): URL => {
+export const urlToEditor = (codeSample: string, baseUrl: string): URL => {
   const contents = stringToBase64(codeSample);
   const url = new URL(document.location.href);
-  url.pathname = "/probeer-het";
+  url.pathname = `${baseUrl}probeer-het`;
   url.hash = `code/${contents}`;
 
   return url;

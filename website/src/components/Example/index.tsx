@@ -5,6 +5,7 @@ import React, { PropsWithChildren } from "react";
 import { urlToEditor } from "../base64";
 import { Button } from "@kabisa/ui-components";
 import styles from "./styles.module.css";
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import classnames from "classnames";
 
 const childrenToCode = (children: React.ReactNode): string =>
@@ -16,9 +17,10 @@ const childrenToCode = (children: React.ReactNode): string =>
 
 export const Example: React.FC<PropsWithChildren> = ({ children }) => {
   const code = childrenToCode(children);
+  const { siteConfig } = useDocusaurusContext();
 
   const onClick = () => {
-    const url = urlToEditor(code);
+    const url = urlToEditor(code, siteConfig.baseUrl);
     document.location.href = url.toString();
   };
 
@@ -38,8 +40,9 @@ export const Example: React.FC<PropsWithChildren> = ({ children }) => {
 
 export const LineExample: React.FC<PropsWithChildren> = ({ children }) => {
   const code = childrenToCode(children);
+  const { siteConfig } = useDocusaurusContext();
   const onClick = () => {
-    const url = urlToEditor(code);
+    const url = urlToEditor(code, siteConfig.baseUrl);
     document.location.href = url.toString();
   };
   return (

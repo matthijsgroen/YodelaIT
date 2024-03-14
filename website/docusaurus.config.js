@@ -12,15 +12,15 @@ const config = {
   favicon: "img/favicon.ico",
 
   // Set the production url of your site here
-  url: "https://your-docusaurus-test-site.com",
+  url: "https://matthijsgroen.github.io/",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: "/",
+  baseUrl: "/YodelaIT/",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: "facebook", // Usually your GitHub org/user name.
-  projectName: "docusaurus", // Usually your repo name.
+  organizationName: "matthijsgroen", // Usually your GitHub org/user name.
+  projectName: "YodelaIT", // Usually your repo name.
 
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
@@ -29,8 +29,8 @@ const config = {
   // metadata like html lang. For example, if your site is Chinese, you may want
   // to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: "en",
-    locales: ["en"],
+    defaultLocale: "nl",
+    locales: ["nl"],
   },
 
   presets: [
@@ -75,7 +75,7 @@ const config = {
             // type: "docSidebar",
             // sidebarId: "tutorialSidebar",
             position: "left",
-            to: "/de-taal",
+            to: "/docs",
             label: "Documentatie",
           },
           { to: "/probeer-het", label: "Probeer het zelf", position: "left" },
@@ -95,7 +95,7 @@ const config = {
             items: [
               {
                 label: "Leer de taal",
-                to: "/de-taal",
+                to: "/docs",
               },
               {
                 label: "Veel gestelde vragen",

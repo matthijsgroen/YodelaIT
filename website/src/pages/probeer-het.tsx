@@ -3,10 +3,11 @@ import Layout from "@theme/Layout";
 import { parser, compiler } from "levenslied";
 import styles from "./probeer-het.module.css";
 import { Editor } from "../components/Editor";
-import exampleScripts from "./example-scripts";
+import exampleScripts from "../data/example-scripts";
 import { base64ToString, urlToEditor } from "../components/base64";
 import { Button, DropdownMenu, MenuItem } from "@kabisa/ui-components";
 import "@kabisa/ui-components/index.css";
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 
 const Page = () => {
   const [output, setOutput] = React.useState([""]);
@@ -17,12 +18,13 @@ const Page = () => {
   const [selectedTitle, SetSelectedTitle] = React.useState(
     exampleScripts[0].name
   );
+  const { siteConfig } = useDocusaurusContext();
 
   let parsedText = null;
 
   const setText = (text) => {
     // Usage
-    const url = urlToEditor(text);
+    const url = urlToEditor(text, siteConfig.baseUrl);
     history.replaceState({}, "", url);
     setInnerText(text);
   };

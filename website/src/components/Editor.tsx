@@ -3,15 +3,25 @@ import { basicSetup, EditorView } from "codemirror";
 import { linter, Diagnostic, lintGutter } from "@codemirror/lint";
 import { parser } from "levenslied";
 
-const dutchErrorMessage = (e: {
-  found: null | string;
-  expected: (
-    | { type: "other"; description: string }
-    | { type: "literal"; text: string }
-  )[];
-}) =>
+type Expected =
+  | { type: "other"; description: string }
+  | { type: "literal"; text: string }
+  | { type: "class"; parts: string[][] };
+
+const expectedToString = (expected: Expected): string => {
+  if (expected.type === "other") {
+    return expected.description;
+  }
+  if (expected.type === "literal") {
+    return expected.text;
+  }
+  return expected.parts.map((item) => item.join("-")).join(", ");
+};
+
+const dutchErrorMessage = (e: { found: null | string; expected: Expected[] }) =>
   `Verwachte: ${e.expected
-    .map((v) => (v.type === "other" ? v.description : v.text))
+    .map(expectedToString)
+    .filter((item, i, l) => l.indexOf(item) === i)
     .join(", ")}, maar vond: ${
     e.found === null ? "eind van code" : '"' + e.found + '"'
   }`;

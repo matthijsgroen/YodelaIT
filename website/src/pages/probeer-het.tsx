@@ -34,18 +34,15 @@ const Page = () => {
     const code = compiler.compile(parsedText, { safeLoops: true });
     try {
       const func = eval(code);
-      console.log(func, code);
       func((e) => result.push(e));
     } catch (e) {
       result.push(e.message);
     }
-    console.log(code);
     setOutput(result);
     setDisplayCode(false);
   };
 
   const onMenuItemSelect = (e) => {
-    console.log(e);
     const script = exampleScripts.find((s) => s.name === e.value);
     if (script) {
       setText(script.script.join("\n"));
@@ -81,7 +78,7 @@ const Page = () => {
                 className={styles.dropdownMenu}
                 direction="bottom"
                 color="primary"
-                text={selectedTitle}
+                text={"Kies een voorbeeld..."}
               >
                 {exampleScripts.map((example) => (
                   <MenuItem

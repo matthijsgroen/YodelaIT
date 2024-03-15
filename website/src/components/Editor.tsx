@@ -57,6 +57,7 @@ export const Editor = ({ value, onChange }) => {
       extensions: [
         basicSetup,
         levensliedLinter,
+        EditorView.lineWrapping,
         lintGutter(),
         EditorView.updateListener.of((v) => {
           if (v.docChanged) {
@@ -86,5 +87,5 @@ export const Editor = ({ value, onChange }) => {
     }
   }, [value]);
 
-  return <div ref={editorElementRef}></div>;
+  return <div ref={editorElementRef} style={{ maxWidth: "95vw" }}></div>;
 };

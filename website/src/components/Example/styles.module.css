@@ -1,5 +1,5 @@
 .example {
-    position: relative;
+  position: relative;
 }
 
 .inlineButton {
@@ -12,7 +12,10 @@
   right: 0;
 }
 
-[data-theme='dark'] .example button {
-    background:var(--subtle-color);
-    color:black;
+.example button {
+  background: var(--bg-color-1);
+}
+[data-theme="dark"] .example button {
+  background: var(--subtle-color);
+  color: black;
 }

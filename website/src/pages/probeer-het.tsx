@@ -67,44 +67,40 @@ const Page = () => {
   return (
     <Layout>
       <div className={styles.layout}>
-        <div className={styles.topbar}>
-          <h1>Schrijf je levenslied</h1>
-          <div className={styles.toolbar}>
-            <Button variant="primary" onClick={executeCode}>
-              <span>Voer programma uit</span>
-            </Button>
-            <div className={styles.examplesDropdownWrapper}>
-              <DropdownMenu
-                className={styles.dropdownMenu}
-                direction="bottom"
-                color="primary"
-                text={"Kies een voorbeeld..."}
-              >
-                {exampleScripts.map((example) => (
-                  <MenuItem
-                    value={example.name}
-                    key={example.name}
-                    onClick={onMenuItemSelect}
-                  >
-                    {example.name}
-                  </MenuItem>
-                ))}
-              </DropdownMenu>
-            </div>
-
-            <span style={{ flex: 1 }}></span>
-            <Button
-              disabled={!displayCode}
-              onClick={() => setDisplayCode(false)}
+        <div className={styles.left}>
+          <Button variant="primary" onClick={executeCode}>
+            <span>Voer programma uit</span>
+          </Button>
+          <div className={styles.examplesDropdownWrapper}>
+            <DropdownMenu
+              className={styles.dropdownMenu}
+              direction="bottom"
+              color="primary"
+              text={"Kies een voorbeeld..."}
             >
-              Uitvoer
-            </Button>
-            <Button disabled={displayCode} onClick={() => setDisplayCode(true)}>
-              Resultaat code
-            </Button>
+              {exampleScripts.map((example) => (
+                <MenuItem
+                  value={example.name}
+                  key={example.name}
+                  onClick={onMenuItemSelect}
+                >
+                  {example.name}
+                </MenuItem>
+              ))}
+            </DropdownMenu>
           </div>
         </div>
+
+        <div className={styles.right}>
+          <Button disabled={!displayCode} onClick={() => setDisplayCode(false)}>
+            Uitvoer
+          </Button>
+          <Button disabled={displayCode} onClick={() => setDisplayCode(true)}>
+            Resultaat code
+          </Button>
+        </div>
         <div className={styles.editor}>
+          <h2>Schrijf je levenslied</h2>
           <Editor value={text} onChange={(t) => setText(t)} />
         </div>
 

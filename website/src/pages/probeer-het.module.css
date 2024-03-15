@@ -1,12 +1,26 @@
 .layout {
   display: grid;
   grid-template:
-    "topbar topbar" min-content
-    "editor result" min-content
-    "editor code" 40% / 1fr 1fr;
+    "topbar1" min-content
+    "editor" min-content
+    "topbar2" min-content
+    "result" min-content
+    "code" 1fr / 1fr;
   max-width: 100vw;
   gap: 1rem;
   padding: 1em;
+}
+
+@media (min-width: 870px) {
+  .layout {
+    grid-template:
+      "topbar1 topbar2" min-content
+      "editor result" min-content
+      "editor code" 40% / 1fr 1fr;
+  }
+  .right {
+    justify-content: end;
+  }
 }
 
 .code {
@@ -23,10 +37,6 @@
 
 .editor {
   grid-area: editor;
-  max-width: 45vw;
-}
-.topbar {
-  grid-area: topbar;
 }
 
 .output {
@@ -34,20 +44,25 @@
   color: white;
   overflow: auto;
   max-height: 60vh;
-  max-width: 45vw;
 }
 
 .compiled {
   overflow: auto;
   font-size: 0.75rem;
   max-height: 60vh;
-  max-width: 45vw;
 }
 
-.toolbar {
+.left {
+  grid-area: topbar1;
+}
+.right {
+  grid-area: topbar2;
+}
+
+.left,
+.right {
   display: flex;
-  flex-direction: row;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .examplesDropdownWrapper > button {

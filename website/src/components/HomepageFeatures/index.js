@@ -27,12 +27,14 @@ const FeatureList = [
     ),
   },
   {
-    title: "Powered by React",
+    title: "Gedreven door Passie",
     Svg: require("@site/static/img/undraw_docusaurus_react.svg").default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Ons doel om Software Ontwikkeling nog beter te maken begint bij het
+        begrijpen van de wensen van de klant en eindgebruiker. Wat drijft ze,
+        waar ligt hun passie? Onze taal voed zich op deze passie tot waanzinnige
+        eindresultaten.
       </>
     ),
   },

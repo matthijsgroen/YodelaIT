@@ -75,7 +75,7 @@ function TweetsSection() {
           {tweetColumns.map((tweetItems, i) => (
             <div className="col col--4" key={i}>
               {tweetItems.map((tweet) => (
-                <Tweet {...tweet} key={tweet.url} />
+                <Tweet {...tweet} key={tweet.handle} />
               ))}
             </div>
           ))}

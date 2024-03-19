@@ -20,8 +20,17 @@ function HomepageHeader() {
         <h1 className="hero__title">{siteConfig.title}</h1>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
         <div className={styles.buttons}>
-          <Link className="button button--secondary button--lg" to="/docs">
-            Levenslied Tutorial - 5min ⏱️
+          <Link
+            className="button button--success button--lg shadow--lw"
+            to="/probeer-het"
+          >
+            Probeer het nu
+          </Link>
+          <Link
+            className="button button--secondary button--lg shadow--lw"
+            to="/docs"
+          >
+            Levenslied leer je in 5 minuten ⏱️
           </Link>
         </div>
       </div>

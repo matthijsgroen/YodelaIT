@@ -7,7 +7,7 @@ const FeatureList = [
   {
     title: "Leesbaar en begrijpelijk",
     Svg: require("@site/static/img/undraw_docusaurus_mountain.svg").default,
-    image: require("@site/static/img/source-code.png"),
+    image: require("@site/static/img/source-code2.png"),
     description: (
       <>
         Kabisa Levenslied was vanaf de grond af ontworpen voor maximale
@@ -32,7 +32,7 @@ const FeatureList = [
   {
     title: "Gedreven door Passie",
     Svg: require("@site/static/img/undraw_docusaurus_react.svg").default,
-    image: require("@site/static/img/singing-developers.png"),
+    image: require("@site/static/img/singing-developers2.png"),
     description: (
       <>
         Ons doel om Software Ontwikkeling nog beter te maken begint bij het

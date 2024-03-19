@@ -11,7 +11,10 @@
 }
 
 .featureImage {
+  display: flex;
+  flex-direction: column-reverse;
   height: 200px;
   width: 200px;
   margin: 0 auto;
+  padding: 4px;
 }

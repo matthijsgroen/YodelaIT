@@ -17,8 +17,12 @@ const config = {
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: "/",
   scripts: [
-     { src: 'https://plausible.io/js/script.js', defer: true, 'data-domain': 'levenslied.kabisa.nl'},
-  ]
+    {
+      src: "https://plausible.io/js/script.js",
+      defer: true,
+      "data-domain": "levenslied.kabisa.nl",
+    },
+  ],
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.

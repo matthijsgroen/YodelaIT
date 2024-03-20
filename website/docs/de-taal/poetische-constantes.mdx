@@ -19,24 +19,24 @@ Een poëtische constante is een enkele regel die bestaat uit de naam van een var
 
 Een poëtische tekst toewijzing van een tekenreeks begint met een variabelenaam, gevolgd door een van de trefwoorden `zeggen`, `zegt` of `zeiden`, gevolgd door een enkele spatie. De rest van de regel tot aan de \n-terminator wordt behandeld als een letterlijke tekenreeks zonder aanhalingstekens.
 
-- <LineExample>Andre zegt Hallo Den Haag!</LineExample> initialiseerd de variabele
+- <LineExample>Andre zegt Hallo Den Haag!</LineExample> initialiseert de variabele
   `Andre` met de tekst `"Hallo Den Haag!"`.
-- <LineExample>Den Haag zegt Hallo terug</LineExample> initialiseerd de variabele
+- <LineExample>Den Haag zegt Hallo terug</LineExample> initialiseert de variabele
   `Den Haag` met de tekst `"Hallo terug"`.
-- <LineExample>Jij zegt dat ik te min ben</LineExample> initialiseerd de variabele
+- <LineExample>Jij zegt dat ik te min ben</LineExample> initialiseert de variabele
   `jij` met de tekst `"dat ik te min ben"`
 
 ## Poëtische Getal constantes
 
 Een poëtisch getal begint met de naam van een variabele, gevolgd door het trefwoord `is`, of de aliassen `bestaat uit`, `zijn`, `was` of `waren`. Zolang het volgende symbool geen letterlijk woord is, wordt de rest van de regel behandeld als een decimaal getal waarin de waarden van opeenvolgende cijfers worden gegeven door de lengte van de daaropvolgende kale woorden, tot aan het einde van de regel. Om het cijfer nul mogelijk te maken en om het gebrek aan geschikte smartlap-woorden van één en twee letters te compenseren, worden de woordlengtes modulo 10 geparseerd. Een punt (.) geeft een decimaal aan. Met uitzondering van de eerste punt worden alle niet-alfabetische tekens genegeerd.
 
-- <LineExample>Henk is fantastisch emotionele kunstenaar</LineExample> initialiseerd
+- <LineExample>Henk is fantastisch emotionele kunstenaar</LineExample> initialiseert
   `Henk` met de waarde `100`
-- <LineExample>Andre was een man van het volk</LineExample> initialiseerd `Andre`
+- <LineExample>Andre was een man van het volk</LineExample> initialiseert `Andre`
   met de waarde `33334`
-- <LineExample>{`Mijn dromen waren kil. Achterdocht deed huiveringen tonen`}</LineExample> initialiseerd
+- <LineExample>{`Mijn dromen waren kil. Achterdocht deed huiveringen tonen`}</LineExample> initialiseert
   `Mijn dromen` met de waarde `3.1415`
-- <LineExample>Sjaak was zonder</LineExample> initialiseerd `Sjaak` met de waarde
+- <LineExample>Sjaak was zonder</LineExample> initialiseert `Sjaak` met de waarde
   `6`. Hoewel `zonder` een gereserveerd woord is wordt het hier gezien als een letterlijk
   woord.
 

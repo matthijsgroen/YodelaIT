@@ -8,6 +8,20 @@ export type TweetItem = Tweet & {
   showOnHomepage: boolean;
 };
 
+const DATES: string[] = [
+  "Mrt 25, 2024",
+  "Mrt 23, 2024",
+  "Mrt 26, 2024",
+  "Mrt 19, 2024",
+];
+
+let counter = 0;
+const getDate = (): string => {
+  const result = DATES[counter];
+  counter = (counter + 1) % DATES.length;
+  return result;
+};
+
 const TWEETS: TweetItem[] = [
   {
     url: "https://twitter.com/kabisasoftware",
@@ -384,6 +398,6 @@ const TWEETS: TweetItem[] = [
   //     showOnHomepage: false,
   //     githubUsername: "biantris",
   //   },
-];
+].map((item) => ({ ...item, date: getDate() }));
 
 export default TWEETS;

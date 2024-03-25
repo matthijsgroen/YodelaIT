@@ -8,6 +8,8 @@ import { base64ToString, urlToEditor } from "../components/base64";
 import { Button, DropdownMenu, MenuItem } from "@kabisa/ui-components";
 import "@kabisa/ui-components/index.css";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 const Page = () => {
   const [output, setOutput] = React.useState([""]);
@@ -15,9 +17,7 @@ const Page = () => {
     exampleScripts[0].script.join("\n")
   );
   const [displayCode, setDisplayCode] = React.useState(false);
-  const [selectedTitle, SetSelectedTitle] = React.useState(
-    exampleScripts[0].name
-  );
+  const [, setSelectedTitle] = React.useState(exampleScripts[0].name);
   const { siteConfig } = useDocusaurusContext();
 
   let parsedText = null;
@@ -31,7 +31,7 @@ const Page = () => {
 
   const executeCode = () => {
     let result = [];
-    const code = compiler.compile(parsedText, { safeLoops: true });
+    const code = compiler.compileJavascript(parsedText, { safeLoops: true });
     try {
       const func = eval(code);
       func((e) => result.push(e));
@@ -46,14 +46,15 @@ const Page = () => {
     const script = exampleScripts.find((s) => s.name === e.value);
     if (script) {
       setText(script.script.join("\n"));
-      SetSelectedTitle(script.name);
+      setSelectedTitle(script.name);
     }
   };
 
   try {
     parsedText = parser.parse(text);
   } catch (e) {}
-  const compiled = parsedText ? compiler.compile(parsedText) : null;
+  const compiled = parsedText ? compiler.compileJavascript(parsedText) : null;
+  const compiledRb = parsedText ? compiler.compileRuby(parsedText) : null;
 
   useEffect(() => {
     const url = new URL(document.location.href);
@@ -117,9 +118,18 @@ const Page = () => {
           style={{ display: displayCode ? "block" : "none" }}
         >
           <h2>Onder de motorkap</h2>
-          <pre className={styles.compiled}>
-            {compiled || "// de tekst kon niet worden begrepen"}
-          </pre>
+          <Tabs groupId="output">
+            <TabItem value="js" label="JavaScript" default>
+              <pre className={styles.compiled}>
+                {compiled || "// de tekst kon niet worden begrepen"}
+              </pre>
+            </TabItem>
+            <TabItem value="rb" label="Ruby" default>
+              <pre className={styles.compiled}>
+                {compiledRb || "# de tekst kon niet worden begrepen"}
+              </pre>
+            </TabItem>
+          </Tabs>
         </div>
       </div>
     </Layout>

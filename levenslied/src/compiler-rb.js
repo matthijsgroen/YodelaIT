@@ -33,7 +33,7 @@ const varname = (variable) => {
 
 const resolve = (expression) => {
   if (!expression) {
-    return "undefined";
+    return "nil";
   }
   if (expression.type === "string") {
     return `"${expression.value}"`;
@@ -42,10 +42,10 @@ const resolve = (expression) => {
     return `${expression.value}`;
   }
   if (expression.type === "undefined") {
-    return "undefined";
+    return "nil";
   }
   if (expression.type === "null") {
-    return "null";
+    return "nil";
   }
   if (
     expression.type === "CommonVariable" ||
@@ -112,11 +112,11 @@ const resolve = (expression) => {
 const processVarDeclaration = ({ variable, value }) => {
   const name = varname(variable);
   needsInitialize = needsInitialize.filter((v) => v !== name);
-  return `let ${processVarAssignment({ variable, value })}`;
+  return `${processVarAssignment({ variable, value })}`;
 };
 
 const processVarAssignment = ({ variable, value }) =>
-  `${varname(variable)} = ${resolve(value)};`;
+  `${varname(variable)} = ${resolve(value)}`;
 
 const indent = (code) =>
   code
@@ -130,68 +130,64 @@ const statementBlock = (statements) =>
 const processFunctionDeclaration = ({ name, parameters, scope }) => {
   const functionName = varname(name);
   needsInitialize = needsInitialize.filter((v) => v !== functionName);
-  return `const ${varname(name)} = (${parameters
+  return `def ${varname(name)}(${parameters
     .map(varname)
-    .join(", ")}) => {${statementBlock(scope)}};\n`;
+    .join(", ")})${statementBlock(scope)}end\n`;
 };
 
 const processFunctionCall = ({ name, parameters }) =>
   `${varname(name)}(${parameters.map(resolve).join(", ")})`;
 
-const processReturn = ({ value }) => `return ${resolve(value)};`;
+const processReturn = ({ value }) => `return ${resolve(value)}`;
 
 const processLoop = ({ condition, kind, block }) =>
-  `while (${kind === "until" ? "!" : ""}${resolve(
+  `${kind === "until" ? "until" : "while"} ${resolve(
     condition
-  )}) {${statementBlock(block)}}`;
+  )}${statementBlock(block)}end`;
 
 const processSafeLoop = ({ condition, kind, block }) => {
   const loopId = safeLoopCounter++;
 
-  return `let i${loopId} = 0;\nwhile (${kind === "until" ? "!" : ""}${resolve(
+  return `i${loopId} = 0\n${kind === "until" ? "while" : "until"} ${resolve(
     condition
-  )}) {\n  i${loopId}++;\n  if (i${loopId} > ${LOOP_MAX}) { throw new Error("lus is niet op tijd beëindigd"); }\n${statementBlock(
+  )})\n  i${loopId} += 1\n  throw "lus is niet op tijd beëindigd" if i${loopId} > ${LOOP_MAX}\n${statementBlock(
     block
-  )}}`;
+  )}end`;
 };
 
 const processIf = ({ condition, block }) =>
-  `if (${resolve(condition)}) {${statementBlock(block)}}`;
+  `if ${resolve(condition)}${statementBlock(block)}end`;
 
-const processOutput = ({ output }) => `output(${resolve(output)});`;
+const processOutput = ({ output }) => `puts ${resolve(output)}`;
 
 const processLoopControl = ({ control }) =>
-  control === "continue" ? "continue;" : "break;";
+  control === "continue" ? "next" : "break";
 
 const processIncrementVariable = ({ variable, amount }) => {
   needsCoerce = true;
   return `${resolve(variable)} = coerce(${resolve(
     variable
-  )}, "number") + ${amount};`;
+  )}, "number") + ${amount}`;
 };
 
 const processDecrementVariable = ({ variable, amount }) => {
   needsCoerce = true;
   return `${resolve(variable)} = coerce(${resolve(
     variable
-  )}, "number") - ${amount};`;
+  )}, "number") - ${amount}`;
 };
 
 const processRoundDown = ({ variable }) => {
   needsCoerce = true;
-  return `${resolve(variable)} = Math.floor(coerce(${resolve(
-    variable
-  )}, "number"));`;
+  return `${resolve(variable)} = coerce(${resolve(variable)}, "number").floor`;
 };
 
 const processRoundUp = ({ variable }) => {
   needsCoerce = true;
-  return `${resolve(variable)} = Math.ceil(coerce(${resolve(
-    variable
-  )}, "number"));`;
+  return `${resolve(variable)} = coerce(${resolve(variable)}, "number").ceil`;
 };
 
-const processComment = ({ content }) => `// ${content}`;
+const processComment = ({ content }) => `# ${content}`;
 
 const processStatements = (statements) => {
   const result = [];
@@ -278,44 +274,31 @@ const processStatements = (statements) => {
 };
 
 const coerceFunc = `
-const coerce = (a, targetType) => {
-  if (typeof a === targetType) {
-    return a;
-  }
-  if (a === null && targetType === "number") {
-    return 0;
-  }
-  throw new Error("Kan niet naar doeltype converteren");
-}
+def coerce(a, targetType)
+  return a if a.instance_of? Integer and targetType == "number"
+  return 0 if a.nil? and targetType == "number"
+  throw "Kan niet naar doeltype converteren";
+end
 `;
 
 const equalFunc = `
-const equal = (a, b) => {
-  if (typeof a === "number" && typeof b !== "number") {
-    return a === coerce(b, "number");
-  }
-  if (typeof a !== "number" && typeof b === "number") {
-    return coerce(a, "number") === b;
-  }
-
-  return a === b;
-}
+def equal(a, b)
+  return a == coerce(b, "number") if a.instance_of? Integer and !b.instance_of? Integer
+  return coerce(a, "number") == b if !a.instance_of? Integer and b.instance_of? Integer
+  a == b
+end
 `;
 
 const addFunc = `
-const add = (a, b) => {
-  if (typeof a === "string" && typeof b === "number") {
-    return parseFloat(a) + b;
-  }
-  if (typeof b === "string") {
-    return \`\${a} \${b}\`;
-  }
+def add(a, b)
+  return a.to_f + b if a.instance_of? String and b.instance_of? Integer
+  return "#{a} #{b}" if b.instance_of? String
 
-  return a + b;
-}
+  a + b
+end
 `;
 
-const compile = (parsedCode, { safeLoops = false } = {}) => {
+const compileRuby = (parsedCode, { safeLoops = false } = {}) => {
   needsEqual = false;
   needsCoerce = false;
   needsAdd = false;
@@ -340,9 +323,10 @@ const compile = (parsedCode, { safeLoops = false } = {}) => {
       .join("");
     code = initCode + code;
   }
-  return `(output) => {\n${indent(code)}\n}`;
+  // return `(output) => {\n${indent(code)}\n}`;
+  return code;
 };
 
 module.exports = {
-  compile,
+  compileRuby,
 };

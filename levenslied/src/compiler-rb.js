@@ -131,7 +131,7 @@ const processFunctionDeclaration = ({ name, parameters, scope }) => {
   const functionName = varname(name);
   needsInitialize = needsInitialize.filter((v) => v !== functionName);
   return `def ${varname(name)}(${parameters
-    .map(varname)
+    .map((n) => `${varname(n)} = nil`)
     .join(", ")})${statementBlock(scope)}end\n`;
 };
 
@@ -275,8 +275,9 @@ const processStatements = (statements) => {
 
 const coerceFunc = `
 def coerce(a, targetType)
-  return a if a.instance_of? Integer and targetType == "number"
-  return 0 if a.nil? and targetType == "number"
+  return a if a.instance_of? Integer and targetType.eql? "number"
+  return a if a.instance_of? Float and targetType.eql? "number"
+  return 0 if a.nil? and targetType.eql? "number"
   throw "Kan niet naar doeltype converteren";
 end
 `;
@@ -285,7 +286,7 @@ const equalFunc = `
 def equal(a, b)
   return a == coerce(b, "number") if a.instance_of? Integer and !b.instance_of? Integer
   return coerce(a, "number") == b if !a.instance_of? Integer and b.instance_of? Integer
-  a == b
+  a.eql? b
 end
 `;
 

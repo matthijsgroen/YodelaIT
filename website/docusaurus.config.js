@@ -154,8 +154,8 @@ const config = {
         darkTheme: darkCodeTheme,
       },
       announcementBar: {
-        id: "announcementBar-3",
-        content: `🤪 Helaas, deze site was een 1 April grap van <a target="_blank" href="https://kabisa.nl"/>Kabisa</a> 🥳️`,
+        id: "announcementBar-4",
+        content: `Innovatief zijn we zeker bij <a target="_blank" href="https://kabisa.nl"/>Kabisa</a>, maar het ontwikkelen van deze muzikale programmeertaal? Dat betreft toch echt een 1 april grap 🤪`,
       },
     }),
   plugins: [

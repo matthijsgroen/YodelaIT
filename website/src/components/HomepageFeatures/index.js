@@ -11,9 +11,9 @@ const FeatureList = [
     description: (
       <>
         Kabisa Levenslied was vanaf de grond af ontworpen voor maximale
-        begrijpelijkheid. Onze passie voor software development heeft dus ook
+        begrijpelijkheid. Onze passie voor softwareontwikkeling heeft dus ook
         zeker een bijdrage gedaan om het maximale uit deze taal te halen.
-        Allemaal om het maximale eruit te halen voor voor onze klanten!
+        Allemaal om het maximale eruit te halen voor onze klanten!
       </>
     ),
   },

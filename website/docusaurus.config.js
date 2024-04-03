@@ -70,7 +70,6 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      // Replace with your project's social card
       image: "img/levenslied-social-card.jpg",
       navbar: {
         title: "Levenslied",
@@ -154,10 +153,10 @@ const config = {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
       },
-      // announcementBar: {
-      //   id: "announcementBar-3", // Increment on change
-      //   content: `🤪 Deze site was de 1 April 2024 grap van <a target="_blank" href="https://kabisa.nl"/>Kabisa</a> 🥳️`,
-      // },
+      announcementBar: {
+        id: "announcementBar-3",
+        content: `🤪 Helaas, deze site was een 1 April grap van <a target="_blank" href="https://kabisa.nl"/>Kabisa</a> 🥳️`,
+      },
     }),
   plugins: [
     [
